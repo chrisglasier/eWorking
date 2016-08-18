@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Code</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+	<script src = "../libraries/jquery/jquery-2.0.2.js"></script>
+	<script src = "../libraries/jquery/jquery-ui.min.js"></script>
+	<style>
+		html{
+			font-family: courier new;
+			font-size:15px;
+		}
+		body{
+			
+		}
+		p{
+			font-size:20px;
+			font-weight:bold;
+			position:fixed;
+			top:0px;
+			width:100%;
+			height: 40px;
+			line-height:40px;
+			margin:0px;
+			padding:0px;
+			background-color:white;
+		}
+		pre{
+			
+			position:relative;
+			top: 30px;
+		}
+	</style>
+	
+	<pre id = "hold"></pre>
+	<p>Nameset</p>
+	<script>
+		opr = opener;
+		html = opr.macStringify(opr.nset,2);
+		$("#hold").html(html);
+	</script>
+	
+	
+	
+</body>
+</html>

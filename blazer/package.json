@@ -1,0 +1,22 @@
+{
+  "main": "cg/blazer.html",
+  "name": "trailblazer",
+  "description": "Creates trails from key/value sets in JSON format",
+  "version": "301",
+  "keywords": [ "JSON", "node-webkit" ],
+  "window": {
+		"title": "Trailblazer",
+		"name": "trailblazer",
+		"toolbar": false,
+		"frame": false,
+		"position":"center",
+		"width": 320,
+		"height": 480,
+		"resizable": true,
+		"always-on-top": false,
+		"show": true
+	},
+  "webkit": {                     
+		"page-cache": false
+  }
+}

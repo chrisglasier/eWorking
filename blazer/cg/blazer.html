@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blazer</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<link rel="stylesheet" href = "stylesheet.css" />
+	<link rel="stylesheet" href = "../../remote/libraries/jquery/jquery-ui.css"/>
+	<script src = "../../remote/libraries/jquery/jquery-2.0.2.js"></script>
+	<script src = "../../remote/libraries/jquery/jquery-ui.min.js"></script>
+</head>
+<body>
+
+	<ul id = "s1">S1</ul>
+	<ul id = "s2">S2</ul>
+	<div  id = "z1"></div>
+	<div id = "m1"></div>
+	</div>
+	<script src = "develop.js"></script>
+	<script src = "manage.js"></script>
+	<script src = "domArr.js"></script>
+	<script src = "shared.js"></script>
+	<script src = "run.js"></script>
+	<script src = "backup.js"></script>
+	<script src = "linkAction.js"></script>
+	<script src = "start.js"></script>
+	<script>
+		//GLOBALS
+		var fs = require('fs');
+		var gui = require('nw.gui');
+		var nset,config,wset;
+		var win;
+		start();
+	</script>
+	<input id = "transfer" type = "hidden"/>
+</body>
+</html>

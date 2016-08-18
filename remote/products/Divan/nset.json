@@ -1,0 +1,31 @@
+{
+	"1": {
+		"Label": "front",
+		"Image": "front"
+	},
+	"2": {
+		"Label": "back",
+		"Image": "front"
+	},
+	"3": {
+		"Label": "top",
+		"Image": "top"
+	},
+	"4": {
+		"Label": "bottom",
+		"Image": "top"
+	},
+	"5": {
+		"Label": "left",
+		"Image": "left"
+	},
+	"6": {
+		"Label": "right",
+		"Image": "left"
+	},
+	"Model": {
+		"Label": "Model",
+		"Dims": [1500,2000,500],
+		"Link": ["1","2","3","4","5","6"]
+	}
+}

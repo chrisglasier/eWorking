@@ -1,0 +1,44 @@
+{
+	"keys": {
+		"Type": ["Assembly","Grouping","Product"],
+		"action": {
+			"System": ["Purge"],
+			"Product": ["Clone","Delete","Keys","Number"],
+			"default": ["Type","Crosslink","Clone","Delete","Keys","Number"]
+		},
+		"link": [
+			["Insert","v","set"],
+			["Add","v","set"]
+		],
+		"Crosslink": ["Context","crosslinks"],
+		"Clone": ["Clone"],
+		"Delete": ["Delete"],
+		"Keys": ["Keys"],
+		"Number": ["Number"],
+		"Purge": ["Purge"]
+	},
+	"monitor": {
+		"menu": ["Model all","Model selected"],
+		"Model all": ["Model all","all"],
+		"Model selected": ["Model selected","selected"]
+	},
+	"values": {
+		"Context": {
+			"Assembly": ["Site","Building","Guestroom","Interiors","Bed"],
+			"Grouping": ["Element","Space"],
+			"Product": ["Test","Bed","Bed"]
+		},
+		"Label": {
+			"Site": ["Site","External works"],
+			"Building": ["Floors"],
+			"Element": ["Elements"],
+			"Space": ["Spaces"],
+			"Test": ["Test product"],
+			"Assembly": ["Guestroom","Bedroom","Bedroom","Bed","Bed"],
+			"Product": ["Bedside cabinet","Bedside cabinet","Bedside cabinet","Platform","Platform","Platform"]
+		},
+		"Area": {
+			"Site": ["100","200"]
+		}
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"comment": "default used to display lists and record selections; lists for categorised tagging; toggles for fixed options",
+	"default": {
+		"Shop": ["Add","Delete"],
+		"Add": ["List","Item","Coupler","Key"],
+		"List": {
+			"Type": "Grouping",
+			"Context": "Machine",
+			"Label": "Input"
+		},
+		"Item": {
+			"Label": "Couplers",
+			"Context": "Machine",
+			"Shop": "couplers",
+			"Link": ["Machine","Building"]
+		},
+		"cloner": {
+			"Multiple": 5,
+			"Numbering": "321"
+		}
+	},
+	"lists": {
+		"Context": {
+			"Code": ["DOM","html","JavaScript","JSON"]
+		},
+		"Label": {
+			"DOM": ["Key/device","Monitors","Names","Output","Values"],
+			"Grouping": ["Machine"]
+		},
+		"Multiple": {
+			"DOM": [1,2,10]
+		}
+	},
+	"toggles": {
+		"Type": ["Code","Grouping","Crosslink"],
+		"Links": ["None","Clone"],
+		"Numbering": ["None","123","321"]
+	}
+}

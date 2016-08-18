@@ -1,0 +1,20 @@
+{
+	"1": {
+		"Type": "Assembly",
+		"Context": "Code",
+		"Label": "Main",
+		"Link": ["2"],
+		"Backlink": ["Blazer"]
+	},
+	"2": {
+		"Type": "Code",
+		"Context": "html",
+		"Label": "Body",
+		"Backlink": ["1"]
+	},
+	"Admin": {
+		"Store": "../../eWorking/stores/code",
+		"Monitors": ["Code"],
+		"Link": ["1"]
+	}
+}
