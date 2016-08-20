@@ -96,6 +96,7 @@ function nRun(){
 function down(e){
 	var cell,pid;
 	$("#save").html("Save");
+	config.mode = "";
 //switch
 	cell = typeof e === "object"? $(e.target) : $(e);
 	if(cell.prop("tagName") === "SPAN"){
