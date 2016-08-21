@@ -158,7 +158,7 @@ function fClone(act,id,cell){
 	else{
 		linkOptions(id,2);
 	}
-	config.mode = "links";
+	config.links = true
 	nRun();
 	tRun();
 }
@@ -166,6 +166,7 @@ function fClone(act,id,cell){
 function fDelete(act,id,cell){
 	var nt,par,pLink,node,ind,ent,nodes;
 	if(act){
+	//remove from parent links	
 		nt = config.nTrail;
 		par = nt[nt.length-2];
 		pLink = nset[par].Link;
@@ -173,12 +174,25 @@ function fDelete(act,id,cell){
 		ind = $.inArray(node,pLink);
 		pLink.splice(ind,1);
 		nset[node].deleted = true;
-		if(nset[node].Link){
+	//remove pivot backlinks
+		if(nset[node].Type === "Pivot"){
+			links = nset[node].Link;
+			$.each(links, function(i,v){
+				ind = $.inArray(node,nset[v].Backlink);
+				if(ind >-1){
+					nset[v].Backlink.splice(ind,1);
+				}
+			});
+		}
+	//markup all descendant links for purging
+		else if(nset[node].Link){
 			nodes = [[node]];
 			compile(nodes,0);
+		
 		}
+	//reset node and trails
 		if(pLink.length > 0){
-			config.mode = "links";
+			config.links = true; //keeps links menu in s2
 			ind = pLink[ind -1]? ind -1 : 0;
 			ent = pLink[ind];
 			config.nNode = ent;
@@ -186,14 +200,15 @@ function fDelete(act,id,cell){
 			config.trail = config.nTrail = nt;
 		}
 		else{
-			config.mode = nset.Blazer.menu.toggle[0];
+			config.links = false; //allows removal of link menu	
 			delete nset[par].Link;
 			config.nNode = par;
 			config.trail = config.nTrail = nt.slice(0,-1);
 		}
 	}
 	else{
-		config.mode = "links";
+		config.links = true;
+	//selection to focus line
 		linkOptions(id,2);
 	}
 	nRun();
@@ -217,7 +232,7 @@ function fNumber(act,id,cell){
 	else{
 		linkOptions(id,2);
 	}
-	config.mode = "links";
+	config.links = true
 	nRun();
 	tRun();
 }
