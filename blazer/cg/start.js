@@ -22,7 +22,7 @@ function setConfig(){
 //sets aspect trail to default in case saved
 	config.aTrail = {};
 	config.aTrail.key = "Type";
-	config.mode = "aspects";
+	config.links = false;
 //move this to set up
 	wset = storeGet();
 //end move
@@ -183,6 +183,15 @@ function finishUp(){
 		config.oh = w.height;
 		tide(2);
 		w.show();
+	});
+}
+
+function scour(){
+	$.each(nset,function(k,v){
+		b = v.Backlink[0];
+		if(!nset[b]){
+			lert(b);
+		}
 	});
 }
 		

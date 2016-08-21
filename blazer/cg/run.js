@@ -39,14 +39,14 @@ function tide(pos){
 }
 
 function nRun(){
-	var nTrail,node,t,s,links,sl,atop,t1,ind,t2;
+	var nTrail,node,t,t2,t1,pre,tm0,arr,ind,ret,t3;
 	nTrail = config.nTrail;
 	node = config.nNode;
 	t = !nset[node].Link? nTrail.slice(0,-1) : nTrail;
 	t2 = t[t.length-2];
 	t1 = t[t.length-1];
 	pre = "n";
-	
+	tm0 = nset.Blazer.menu.toggle[0];
 //Couplers
 	if(node === "Couplers" || t1 === "Couplers"){
 		arr = ["Couplers"];
@@ -57,8 +57,8 @@ function nRun(){
 		domArr(pre,ind,arr,2);
 	}
 	
-//static links for clone/delete/number/action/monitor kvs
-	else if(config.mode === "links"){
+//keeps link arr in s2 for repeat clone/delete/number action
+	else if(config.links){
 			t = nset[node].Link? t2 : t1;
 			arr = nset[t].Link;
 			ind = $.inArray(node,arr);
@@ -74,13 +74,12 @@ function nRun(){
 		pre = "k";
 		domArr(pre,ret[0],ret[1],2,1);
 	}
-	
 //default
 	else{
 		arr = nset[t2].Link;
 		ind = $.inArray(t1,arr);
 		domArr(pre,ind,arr,1);
-		if(nset.Blazer.menu.toggle[0] === "Names"){
+		if(tm0 === "Names"){
 			arr = nset[t1].Link;
 			ind = -2;
 			domArr(pre,ind,arr,2);
@@ -96,7 +95,7 @@ function nRun(){
 function down(e){
 	var cell,pid;
 	$("#save").html("Save");
-	config.mode = "";
+	config.links = false;
 //switch
 	cell = typeof e === "object"? $(e.target) : $(e);
 	if(cell.prop("tagName") === "SPAN"){
@@ -117,7 +116,8 @@ function tDown(cell){
 	node = cell.attr("id").slice(1);
 	config.nNode = node;
 	ind = cell.index();
-	config.nTrail = config.trail.slice(0,ind +1);
+	//config.nTrail = config.trail.slice(0,ind +1);
+	config.nTrail = config.trail.slice(0,ind+1);
 	nRun();
 	tide(2);
 	monitor = nset[config.coupler].monitor[config.monitor];
@@ -133,8 +133,8 @@ function nDown(cell){
 		return;
 	}
 	nt = config.nTrail;
-	par = parseInt(cell.parent().attr("id").slice(1));
-	nt = par === 1? nt = nt.slice(0,-1) : nt;
+	par = cell.parent().attr("id");
+	nt = par === "s1"? nt = nt.slice(0,-1) : nt;
 	nt.push(node);
 	config.nTrail = nt;
 	config.trail = nt;
@@ -144,8 +144,7 @@ function nDown(cell){
 	if(nset[node].Type === "System" && node !== config.coupler){
 		last = config.coupler;
 		coupler = node;
-		config.nTrail = ["Couplers"];
-		config.trail = ["Couplers"];
+		config.trail = config.nTrail = ["Couplers"];
 		nRun();
 		tide(2);
 		node = "Couplers";
@@ -172,10 +171,11 @@ function nDown(cell){
 		$.each(pset.Admin.Link,function(i,v){
 			nset[v].Backlink = [coupler];
 		});		
-		//storeSave();
+	//storeSave();
 		config.store = nset[coupler].Store;
 		wset = storeGet();
 		config.coupler = coupler;
+		config.monitor = pset.Admin.active;
 	}
 	config.nNode = node;
 	nRun();
@@ -297,7 +297,7 @@ function aFinish(){
 			});
 		break;
 		default:
-			html =  at.value; lert(html)
+			html =  at.value;
 			nn[key] = html;
 			tRun();
 			updateStore(nn.Type,key,val);
