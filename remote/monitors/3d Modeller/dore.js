@@ -1,9 +1,10 @@
-var opr,nset,node,lert
+var opr,nset,node,lert,scene,camera,renderer;
 
 function start(){
-
 	opr = opener;
 	lert = opr.lert;
+// xyz to match nset	
+	THREE.Object3D.DefaultUp.set( 0, 0, 1 );
 	$(document).ready(function(){
 		project = $("#transfer",opr.window.document).val();
 		if(project === opr.config.coupler){
@@ -16,7 +17,6 @@ function start(){
 			nset = JSON.parse(txt);
 			node = nset.Admin.nNode;
 		}
-		/*
 		if(scene){
 			$.each(scene.children,function(i,v){
 				//lert(v.constructor);
@@ -25,24 +25,8 @@ function start(){
 			});
 		}
 		else{
-	//initiate scene and add new keys to opr.nset
-			if(project === opr.config.coupler){
-				$.each(nset,function(k,v){
-					node = k;
-					if(v.hasOwnProperty("Type")){
-						if(v.Type === "Assembly" && !v.Dims){
-							v.Dims = [0,0,0];
-							v.Rotation = [0,0,0];
-							v.Position = [0,0,0];
-						}
-					}
-				})
-			}				
-			setScene(project);
+			setScene();
 		}
-		*/
-		setScene();
 		setModel(node);
-		
 	});
 }

@@ -1,5 +1,3 @@
-var scene,camera,renderer,scale;
-
 //mouse event variables
 var projector = new THREE.Projector(), 
 raycaster = new THREE.Raycaster(),
@@ -9,7 +7,13 @@ function setScene(project){
 	var w,h
 	w = $("body").width();
 	h = $("body").height();
-	scale = 1/10;
+	
+	renderer = new THREE.CanvasRenderer({ alpha: true });
+	renderer.setClearColor( 0xdddddd, 1);
+	renderer.setSize( w,h );
+	document.body.appendChild( renderer.domElement );
+	renderer.domElement.addEventListener( 'mousedown', mouseDown, false );
+	
 	scene = new THREE.Scene();
 	
 	cam = nset.Admin.monitor["3D Modeller"].scene.camera;
@@ -20,18 +24,12 @@ function setScene(project){
 	ocam.position.z = 200;
 
 	pcam = new THREE.PerspectiveCamera( 75, w/h, 0.1, 1000 );
-	pcam.position.x = 270;
-	pcam.position.y = 0;
-	pcam.position.z = 300;
+	pcam.position.x = 200;
+	pcam.position.y = 200;
+	pcam.position.z = 200;
 	camera = cam === "Perspective"? pcam : ocam
 	camera.lookAt(scene.position);	
 	
-	renderer = new THREE.CanvasRenderer({ alpha: true });
-	renderer.setClearColor( 0xdddddd, 1);
-	renderer.setSize( w,h );
-	document.body.appendChild( renderer.domElement );
-	renderer.domElement.addEventListener( 'mousedown', mouseDown, false );
-
 	light = new THREE.DirectionalLight( 0xffffff );
 	light.position.set( 10, 20, 30 );
 	scene.add( new THREE.AmbientLight( 0xffffff ) );
@@ -41,7 +39,6 @@ function setScene(project){
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.25;
 	controls.enableZoom = false;
-	
 }
 
 function animate() {

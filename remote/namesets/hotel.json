@@ -5,334 +5,125 @@
 		"Label": "Site",
 		"Backlink": ["Hotel"],
 		"Link": ["2","3","4"],
-		"Area": 100
+		"Area": 100,
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"2": {
 		"Type": "Assembly",
 		"Context": "Building",
 		"Label": "Substructure",
-		"Backlink": ["1"]
+		"Backlink": ["1"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"3": {
 		"Type": "Assembly",
 		"Context": "Building",
 		"Label": "Superstructure",
 		"Backlink": ["1"],
-		"Link": ["5","6","7","8"]
+		"Link": ["5","6","7","8"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"4": {
 		"Type": "Assembly",
 		"Context": "Site",
 		"Label": "External Works",
-		"Backlink": ["1"]
+		"Backlink": ["1"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"5": {
 		"Type": "Assembly",
 		"Context": "Element",
 		"Label": "Roof",
-		"Backlink": ["3","11"]
+		"Backlink": ["3"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"6": {
 		"Type": "Assembly",
 		"Context": "Element",
 		"Label": "Enlosure",
-		"Backlink": ["3","11"]
+		"Backlink": ["3"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"7": {
 		"Type": "Assembly",
 		"Context": "Element",
 		"Label": "Structure",
-		"Backlink": ["3","11"]
+		"Backlink": ["3"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"8": {
 		"Type": "Grouping",
 		"Context": "Element",
 		"Label": "Floors",
-		"Backlink": ["3","11"],
+		"Backlink": ["3"],
 		"Link": ["12"]
 	},
 	"9": {
 		"Type": "Grouping",
 		"Context": "Element",
 		"Label": "Walls",
-		"Backlink": ["12","11"]
+		"Backlink": ["12"]
 	},
 	"10": {
 		"Type": "Grouping",
 		"Context": "Element",
 		"Label": "Spaces",
-		"Backlink": ["12","11"],
+		"Backlink": ["12"],
 		"Link": ["19"]
-	},
-	"11": {
-		"Type": "Grouping",
-		"Context": "Element",
-		"Label": "Elements",
-		"Backlink": ["Hotel"],
-		"Link": ["5","6","7","8","9","10"]
 	},
 	"12": {
 		"Type": "Assembly",
 		"Context": "Element",
 		"Label": "Floor",
 		"Backlink": ["8"],
-		"Link": ["9","10"]
-	},
-	"13": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["10"],
-		"Link": ["14","15"],
-		"deleted": true
-	},
-	"14": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["13"],
-		"deleted": true
-	},
-	"15": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["13"],
-		"deleted": true
-	},
-	"16": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["10"],
-		"Link": ["17","18"]
-	},
-	"17": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["16"]
-	},
-	"18": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["16"]
+		"Link": ["9","10"],
+		"Dims": [null,null,null],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"19": {
 		"Type": "Assembly",
 		"Context": "Interiors",
 		"Label": "Guestroom",
 		"Backlink": ["10"],
-		"Link": ["20","21"]
+		"Link": ["20","21"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"20": {
 		"Type": "Assembly",
 		"Context": "Interiors",
 		"Label": "Bedroom",
 		"Backlink": ["19"],
-		"Link": ["148"]
+		"Link": ["148"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"21": {
 		"Type": "Assembly",
 		"Context": "Interiors",
 		"Label": "Bathroom",
-		"Backlink": ["19"]
-	},
-	"22": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["10"],
-		"Link": ["23","24"]
-	},
-	"23": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["22"]
-	},
-	"24": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["22"]
-	},
-	"25": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["10"],
-		"Link": ["26","27"],
-		"deleted": true
-	},
-	"26": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["25"],
-		"deleted": true
-	},
-	"27": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["25"],
-		"deleted": true
-	},
-	"124": {
-		"Type": "Assembly",
-		"Context": "Element",
-		"Label": "Floor 9",
-		"Backlink": ["8"],
-		"Link": ["125","126"]
-	},
-	"125": {
-		"Type": "Grouping",
-		"Context": "Element",
-		"Label": "Walls",
-		"Backlink": ["124","11"]
-	},
-	"126": {
-		"Type": "Grouping",
-		"Context": "Element",
-		"Label": "Spaces",
-		"Backlink": ["124","11"],
-		"Link": ["127","128","129"]
-	},
-	"127": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["126"],
-		"Link": ["130","131"]
-	},
-	"128": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["126"],
-		"Link": ["132","133"]
-	},
-	"129": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["126"],
-		"Link": ["134","135"]
-	},
-	"130": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["127"]
-	},
-	"131": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["127"]
-	},
-	"132": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["128"]
-	},
-	"133": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["128"]
-	},
-	"134": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["129"]
-	},
-	"135": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["129"]
-	},
-	"136": {
-		"Type": "Assembly",
-		"Context": "Element",
-		"Label": "Floor 10",
-		"Backlink": ["8"],
-		"Link": ["137","138"]
-	},
-	"137": {
-		"Type": "Grouping",
-		"Context": "Element",
-		"Label": "Walls",
-		"Backlink": ["136","11"]
-	},
-	"138": {
-		"Type": "Grouping",
-		"Context": "Element",
-		"Label": "Spaces",
-		"Backlink": ["136","11"],
-		"Link": ["139","140","141"]
-	},
-	"139": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["138"],
-		"Link": ["142","143"]
-	},
-	"140": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["138"],
-		"Link": ["144","145"]
-	},
-	"141": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Guestroom",
-		"Backlink": ["138"],
-		"Link": ["146","147"]
-	},
-	"142": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["139"]
-	},
-	"143": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["139"]
-	},
-	"144": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["140"]
-	},
-	"145": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["140"]
-	},
-	"146": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bedroom",
-		"Backlink": ["141"]
-	},
-	"147": {
-		"Type": "Assembly",
-		"Context": "Interiors",
-		"Label": "Bathroom",
-		"Backlink": ["141"]
+		"Backlink": ["19"],
+		"Link": ["154"],
+		"Dims": [0,0,0],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
 	},
 	"148": {
 		"Type": "Grouping",
@@ -354,7 +145,10 @@
 		"Backlink": ["148"],
 		"Link": ["152","153"],
 		"Style": "Plain",
-		"Visible": true
+		"Visible": true,
+		"Dims": [2700,2700,1000],
+		"Position": [0,0,0],
+		"Rotation": [0,0,0]
 	},
 	"152": {
 		"Type": "Product",
@@ -366,9 +160,10 @@
 		"Style": "Plain",
 		"Material": "blue",
 		"Visible": true,
-		"Dims": [1500,1000,100],
-		"Position": [0,250,-1000],
-		"Rotation": [90,0,0]
+		"Dims": [1500,100,1000],
+		"Shape": "box",
+		"Position": [0,0,-1050],
+		"Rotation": [0,0,0]
 	},
 	"153": {
 		"Type": "Product",
@@ -381,12 +176,47 @@
 		"Material": "lightgreen",
 		"Visible": true,
 		"Dims": [1500,2000,500],
-		"Position": [0,0,50],
+		"Shape": "box",
+		"Position": [0,-250,0],
+		"Rotation": [0,0,0]
+	},
+	"154": {
+		"Type": "Grouping",
+		"Context": "Sanitaryware",
+		"Label": "Sanitaryware",
+		"Backlink": ["21"],
+		"Link": ["155"]
+	},
+	"155": {
+		"Type": "Assembly",
+		"Context": "WC",
+		"Label": "WC",
+		"Backlink": ["21"],
+		"Link": ["156"],
+		"Dims": [1500,2000,500],
+		"Rotation": [0,0,0],
+		"Position": [0,0,0]
+	},
+	"156": {
+		"Type": "Product",
+		"Context": "Pan",
+		"Label": "Pan",
+		"Backlink": ["155"],
+		"Source": "search",
+		"nopset": "../remote/products/WC/Pan/",
+		"image": "../products/WC/Pan/",
+		"Style": "Texture",
+		"Material": "white",
+		"Visible": true,
+		"Dims": [370,700,420],
+		"Shape": "blob",
+		"Position": [0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"Admin": {
 		"Store": "../remote/stores/building.json",
 		"Scripts": [],
+		"active": "3D Modeller",
 		"monitor": {
 			"3D Modeller": {
 				"scene": {
@@ -395,6 +225,6 @@
 			}
 		},
 		"nNode": "Hotel",
-		"Link": ["1","11"]
+		"Link": ["1"]
 	}
 }

@@ -1,0 +1,56 @@
+{
+	"1": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [-150,0,0],
+		"rotation" : [0,90,0]
+	},
+	"2": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [-100,0,0],
+		"rotation" : [0,90,0]
+	},
+	"3": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [-50,0,0],
+		"rotation" : [0,90,0]
+	},
+	"4": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [0,0,0],
+		"rotation" : [0,90,0]
+	},
+	"5": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [50,0,0],
+		"rotation" : [0,90,0]
+	},
+	"6": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [100,0,0],
+		"rotation" : [0,90,0]
+	},
+	"7": {
+		"Label": "front",
+		"Image": "left",
+		"size" : [700,420],
+		"position" : [150,0,0],
+		"rotation" : [0,90,0]
+	},
+	"Model": {
+		"Label": "Model",
+		"Dims": [370,700,420],
+		"Link": ["1","2","3","4","5","6","7"]
+	}
+}

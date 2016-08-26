@@ -14,7 +14,14 @@
 	},
 	"Admin": {
 		"Store": "../../eWorking/stores/code",
-		"Monitors": ["Code"],
+		"active": "Code",
+		"monitor": {
+			"Code": {
+				"defaults": {
+					"active": "Nameset"
+				}
+			}
+		},
 		"Link": ["1"]
 	}
 }
