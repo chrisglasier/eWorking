@@ -73,7 +73,7 @@ function mRun(){
 function monArr(set){
 	var arr,ctr,k,v,ind,sw,ret;
 	arr = [];
-	ctr = 0;
+	ctr = 0; ind = 0;
 	$.each(set,function(k,v){
 		if(k === config.mTrail[1]){
 			ind = ctr;
@@ -142,8 +142,12 @@ function storeSave(){
 
 function macSave(set,path){
 	txt = macStringify(set);
+	if(txt === ""){
+		lert("save failed");
+		return;
+	}
 	fs.writeFile(path, txt );
-	storeSave();
+	//storeSave();
 }	
 
 function macStringify(set,offset){

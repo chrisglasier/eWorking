@@ -19,9 +19,9 @@ function updateStore(t,k,v){
 //remove nr suffix if any
 	vs = v.split(" ");
 	name = typeof vs[1] === Number? vs[0] : v;
-	ind = $.inArray(v[0],vals[k][t]);
+	ind = $.inArray(vs[0],vals[k][t]);
 	if(ind <0){
-		vals[k][t].push(name);
+		vals[k][t].push(name); 
 	}
 }
 

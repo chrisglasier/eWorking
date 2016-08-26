@@ -187,6 +187,8 @@ function finishUp(){
 }
 
 function scour(){
+	set = {};
+	
 	$.each(nset,function(k,v){
 		b = v.Backlink[0];
 		if(!nset[b]){
