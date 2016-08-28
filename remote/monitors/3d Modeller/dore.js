@@ -1,15 +1,16 @@
 var opr,nset,node,lert,scene,camera,renderer;
 
 function start(){
+	var nodes;
 	opr = opener;
 	lert = opr.lert;
 // xyz to match nset	
 	THREE.Object3D.DefaultUp.set( 0, 0, 1 );
 	$(document).ready(function(){
 		project = $("#transfer",opr.window.document).val();
-		if(project === opr.config.coupler){
+		if(project === opr.bfig.coupler){
 			nset = opr.nset;
-			node = opr.config.nNode;
+			node = opr.cfig.nNode;
 		}
 		else{
 			file = opr.nset[project].Location;
@@ -17,16 +18,8 @@ function start(){
 			nset = JSON.parse(txt);
 			node = nset.Admin.nNode;
 		}
-		if(scene){
-			$.each(scene.children,function(i,v){
-				//lert(v.constructor);
-			
-				//scene.remove(scene.children[len]);
-			});
-		}
-		else{
-			setScene();
-		}
-		setModel(node);
+		setScene();
+		nodes = nodesArray(node);
+		setModel(nodes);
 	});
 }

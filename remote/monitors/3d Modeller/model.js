@@ -1,79 +1,47 @@
-function setModel(node){
+function setModel(nodes){
 	var obj,nodes,ind,ret,max,min,xyz,last,len,w,h,sc;
 //first object
 	obj = new THREE.Object3D();
-	obj.name = node;
-	if(nset[node].hasOwnProperty("pset")){
+	obj.name = nodes[0][0];
+	if(nset[nodes[0][0]].hasOwnProperty("pset")){
 		obj = setProduct(obj);
 	}
 	scene.add(obj);
-	if(nset[node].Link){
-		nodes = [[node]];
-		ind = 0;
-		nodes = compile(nodes,ind);
-		sc = bounds(nodes);
-		scene.scale.set(sc,sc,sc);
-		animate();
-	}
+	$.each(nodes,function(i,v){
+		setObject(v);
+	});
+	sc = bounds(nodes);
+	scene.scale.set(sc,sc,sc);
+	animate();
 }
 	
-function compile(nodes,ind){	
-	var n,i,v;
-	n = nodes[ind][0];
-	nn = nset[n];
-//will always have link
-	if(nn.Link){
-		$.each(nn.Link,function(i,v){
-			nodes.push([v,n])
-		});
-		pass(nodes,ind);
-	}
-	function pass(nodes,ind){
-		var node;
-		ind +=1;
-		node = nodes[ind];
-		if(!nodes[ind]){
-			return;
-		}
-		obj = new THREE.Object3D();
-		obj.name = node[0];
-		nn = nset[node[0]];
-		if(nn.Type === "Product"){
-			if(nn.hasOwnProperty("pset")){
-				obj = setProduct(obj);
-			}
-		}
-		else{
-			if(nn.hasOwnProperty("Dims") && nn.Dims[0] >0){
-				set = $.extend(true,{},nn);
-				$.each(set.Rotation,function(i,v){
-					set.Rotation[i] *= Math.PI/180;
-				});
-				r = set.Rotation;
-				obj.rotation.set(r[0],r[1],r[2]);
-			//xyz determined by relationships
-				//p = set.Position;
-				//obj.position.set(p[0],p[1],p[2]);
-			}
-		}
-		
-		par = scene.getObjectByName(node[1]);
-		if(!par){
-			par = new THREE.Object3D();
-			par.name = node[1];
-		}
-		par.add(obj);
-		
-		
-		
-		if(nset[node[0]].Link){		
-			compile(nodes,ind);			
-		}
-		else{
-			pass(nodes,ind);				
+function setObject(node){
+	var obj,nn,set,r,par;
+	obj = new THREE.Object3D();
+	obj.name = node[0]; 
+	nn = nset[node[0]];
+	if(nn.Type === "Product"){
+		if(nn.hasOwnProperty("pset")){
+			obj = setProduct(obj);
 		}
 	}
-	return nodes;	
+	else{
+		if(nn.hasOwnProperty("Dims") && nn.Dims[0] >0){
+			set = $.extend(true,{},nn);
+			$.each(set.Rotation,function(i,v){
+				set.Rotation[i] *= Math.PI/180;
+			});
+			r = set.Rotation;
+			obj.rotation.set(r[0],r[1],r[2]);
+		}
+	}	
+	par = scene.getObjectByName(node[1]);
+	if(!par){
+		par = new THREE.Object3D();
+		par.name = node[1];
+		scene.add(par);
+	}
+	par.add(obj);	
 }
 	
 function setProduct(obj){
@@ -134,16 +102,17 @@ function setProduct(obj){
 }
 
 function bounds(nodes){
-	var xyz,node,nn,cs,d,sp,obj,tot,adj,geo,mat,spaceBox,par,retmax,min,md,w,sc;
+	var xyz,node,pode,nn,cs,d,sp,obj,tot,adj,geo,mat,spaceBox,par,retmax,min,md,w,sc;
 //from bottom up - only products have fixed dimensions and positioning
 	nodes.reverse();
 	xyz = ["x","y","z"];
 	$.each(nodes,function(i,v){
 		node = v[0];
+		pode = v[1];
 		nn = nset[node];
-//add space object to parent to force helpBox
-		if(nn.hasOwnProperty("Space")){
-			cs = nn.Space.Current;
+//add Void object to parent to force helpBox
+		if(nn.hasOwnProperty("Void")){
+			cs = nn.Void.Current;
 			d = nn.Dims;
 			sp = [];
 			obj = scene.getObjectByName(node); 
@@ -159,7 +128,12 @@ function bounds(nodes){
 				color: 0xffffff
 			} );
 			spaceBox = new THREE.Mesh( geo, mat );
-			par = scene.getObjectByName(v[1]); 
+			r = nn.Rotation;
+			set = $.extend(true,{},nn);
+			$.each(set.Rotation,function(i,v){
+				set.Rotation[i] *= Math.PI/180;
+			});
+			par = scene.getObjectByName(pode); 
 			par.add(spaceBox);
 		}	
 		if(nn.hasOwnProperty("Dims")){
@@ -200,7 +174,7 @@ function mouseDown( e ) {
 			if(node.charAt(0) === "s"){
 				node = node.slice(1);
 			}
-			opr.config.nNode = node;
+			opr.cfig.nNode = node;
 			opr.rerun(node);
 		}
 	}

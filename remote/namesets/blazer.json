@@ -13,7 +13,10 @@
 		"Backlink": ["1"]
 	},
 	"Admin": {
-		"Store": "../../eWorking/stores/code",
+		"trail": ["Couplers","Blazer","1","2"],
+		"nTrail": ["Couplers"],
+		"nNode": "Couplers",
+		"Store": "../remote/stores/code.json",
 		"active": "Code",
 		"monitor": {
 			"Code": {
@@ -22,6 +25,7 @@
 				}
 			}
 		},
-		"Link": ["1"]
+		"Link": ["1"],
+		"store": "../remote/stores/code.json"
 	}
 }
