@@ -40,7 +40,7 @@ function inspect(){
 	monitor = nset.Code;
 	path = monitor.Output.Location;
 	file = monitor.Output.File; 
-	nr = config.screen >1? config.screen -1 : 0;
+	nr = bfig.screen >1? bfig.screen -1 : 0;
 	obj = gui.Window.open(path +"/" +file +".html",{
 		"title": "code",
 		"name": "code",

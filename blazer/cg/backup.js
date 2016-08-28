@@ -2,7 +2,7 @@
 
 function storeGet(){
 	var path,txt;
-	path = config.store;
+	path = cfig.Store;
 	txt = fs.readFileSync(path, 'utf-8');
 	return JSON.parse(txt);
 }
@@ -51,7 +51,7 @@ function aspects(node){
 		if(k === "Backlink" || k === "Link"){
 			v = "manager";
 		}
-		if(k === config.aTrail.key){
+		if(k === bfig.aTrail.key){
 			ind = i;
 		}
 		i +=1;
@@ -93,7 +93,7 @@ function backlinkArr(node){
 function linkArr(){
 	var k,l,t,p,arr,karr,ind;
 	k = wset.keys;
-	node = config.nNode;
+	node = cfig.nNode;
 	l = nset[node].Label;
 	t = nset[node].Type;
 	p = nset[node].Link? k.link[0] : k.link[1];
@@ -124,7 +124,7 @@ function linkOptions(id,sn){
 	var arr,ind;
 	arr = linkArr();
 	$.each(arr,function(i,v){
-		if(v[1] === config.aTrail.fun){
+		if(v[1] === cfig.aTrail.fun){
 			ind = i;
 		}
 	});

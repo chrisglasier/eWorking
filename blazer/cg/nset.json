@@ -6,9 +6,20 @@
 		"Backlink": ["Hotel"],
 		"Link": ["2","3","4"],
 		"Area": 100,
-		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Dims": [2700,2700,1000],
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"2": {
 		"Type": "Assembly",
@@ -16,8 +27,19 @@
 		"Label": "Substructure",
 		"Backlink": ["1"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"3": {
 		"Type": "Assembly",
@@ -25,9 +47,20 @@
 		"Label": "Superstructure",
 		"Backlink": ["1"],
 		"Link": ["5","6","7","8"],
-		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Dims": [2700,2700,1000],
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"4": {
 		"Type": "Assembly",
@@ -35,8 +68,19 @@
 		"Label": "External Works",
 		"Backlink": ["1"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"5": {
 		"Type": "Assembly",
@@ -44,8 +88,19 @@
 		"Label": "Roof",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"6": {
 		"Type": "Assembly",
@@ -53,8 +108,19 @@
 		"Label": "Enlosure",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"7": {
 		"Type": "Assembly",
@@ -62,8 +128,19 @@
 		"Label": "Structure",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"8": {
 		"Type": "Grouping",
@@ -92,8 +169,19 @@
 		"Backlink": ["8"],
 		"Link": ["9","10"],
 		"Dims": [2700,2700,1000],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"19": {
 		"Type": "Assembly",
@@ -101,9 +189,20 @@
 		"Label": "Guestroom",
 		"Backlink": ["10"],
 		"Link": ["20","21"],
-		"Dims": [2700,2700,1000],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Dims": [2700,2675,1000],
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"20": {
 		"Type": "Assembly",
@@ -111,9 +210,20 @@
 		"Label": "Bedroom",
 		"Backlink": ["19"],
 		"Link": ["148"],
-		"Dims": [2700,2700,1000],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Dims": [2700,2675,1000],
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"21": {
 		"Type": "Assembly",
@@ -122,8 +232,19 @@
 		"Backlink": ["19"],
 		"Link": ["154"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"148": {
 		"Type": "Grouping",
@@ -146,9 +267,8 @@
 		"Link": ["152","153"],
 		"Style": "Plain",
 		"Visible": true,
-		"Dims": [1500,2100,1000],
-		"comment": "void: x-,x+,y-,y+,z-,z+",
-		"Space": {
+		"Dims": [1500,2075,1000],
+		"Void": {
 			"Minimum": {
 				"x": [600,600],
 				"y": [600,0],
@@ -160,7 +280,6 @@
 				"z": [0,0]
 			}
 		},
-		"Position": [0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"152": {
@@ -173,9 +292,9 @@
 		"Style": "Plain",
 		"Material": "blue",
 		"Visible": true,
-		"Dims": [1500,100,1000],
 		"Shape": "box",
-		"Position": [0,-950,0],
+		"Dims": [1500,100,1000],
+		"Position": [0,-975,0],
 		"Rotation": [0,0,0]
 	},
 	"153": {
@@ -188,8 +307,8 @@
 		"Style": "Plain",
 		"Material": "lightgreen",
 		"Visible": true,
-		"Dims": [1500,2000,500],
 		"Shape": "box",
+		"Dims": [1500,2000,500],
 		"Position": [0,50,-250],
 		"Rotation": [0,0,0]
 	},
@@ -207,8 +326,19 @@
 		"Backlink": ["21"],
 		"Link": ["156"],
 		"Dims": [0,0,0],
-		"Rotation": [0,0,0],
-		"Position": [0,0,0]
+		"Void": {
+			"Minimum": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			},
+			"Current": {
+				"x": [0,0],
+				"y": [0,0],
+				"z": [0,0]
+			}
+		},
+		"Rotation": [0,0,0]
 	},
 	"156": {
 		"Type": "Product",
@@ -221,14 +351,16 @@
 		"Style": "Texture",
 		"Material": "white",
 		"Visible": true,
-		"Dims": [0,0,0],
 		"Shape": "blob",
+		"Dims": [0,0,0],
 		"Position": [0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"Admin": {
+		"trail": ["Couplers","Hotel","1","3","8","12","10","19","20","148","151","153"],
+		"nTrail": ["Couplers","Hotel","1","3","8","12"],
+		"nNode": "Hotel",
 		"Store": "../remote/stores/building.json",
-		"Scripts": [],
 		"active": "3D Modeller",
 		"monitor": {
 			"3D Modeller": {
@@ -237,7 +369,6 @@
 				}
 			}
 		},
-		"nNode": "Hotel",
 		"Link": ["1"]
 	},
 	"Blazer": {
@@ -270,21 +401,16 @@
 				"win": 1
 			}
 		},
-		"config": {
-			"trail": ["Couplers","Hotel","1","3","8","12","10","19","20","148","151","152"],
-			"nTrail": ["Couplers","Hotel","1","3","8"],
-			"nNode": "8",
+		"bfig": {
+			"coupler": "Hotel",
+			"monitor": "3D Modeller",
+			"mTrail": ["Hotel","3D Modeller"],
 			"aTrail": {
 				"key": "Type"
 			},
 			"links": false,
-			"coupler": "Hotel",
-			"monitor": "3D Modeller",
-			"mTrail": ["Hotel","3D Modeller"],
 			"screen": 2,
-			"oh": 480,
-			"store": "../remote/stores/building.json",
-			"anode": "Type"
+			"oh": 480
 		},
 		"style": {
 			"font": "15px",
@@ -332,7 +458,7 @@
 					[-5,2],
 					[2851,4]
 				],
-				"show": true,
+				"show": false,
 				"title": "Hotel",
 				"name": "Hotel",
 				"toolbar": true,
@@ -369,11 +495,11 @@
 			"url": "lert.html",
 			"size": [
 				[375,558],
-				[352,680]
+				[301,534]
 			],
 			"position": [
 				[540,-1],
-				[3044,367]
+				[3509,486]
 			],
 			"show": false,
 			"title": "Lert",

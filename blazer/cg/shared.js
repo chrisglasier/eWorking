@@ -19,7 +19,7 @@ function pass(nodes,ind){
 	if(!nodes[ind]){
 		return;
 	}
-	if(config.aTrail.fun === "Delete"){
+	if(bfig.aTrail.fun === "Delete"){
 		nset[node[0]].deleted = true;
 	}
 	else{
@@ -43,8 +43,8 @@ function rerun(id){
 		id = nset[id].Backlink[0];
 		nt.unshift(id);
 	}
-	config.nTrail = nt;
-	config.trail = nt;
+	cfig.nTrail = nt;
+	cfig.trail = nt;
 	nRun();
 	tRun();
 }

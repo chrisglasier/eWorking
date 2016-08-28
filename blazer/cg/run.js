@@ -6,7 +6,7 @@ function tRun(){
 	sl.empty();
 	p = "t";
 	s = nset.Blazer.style;
-	$.each(config.trail,function(i,v){
+	$.each(cfig.trail,function(i,v){
 		sl
 		.append($(document.createElement("a"))
 			.html(nset[v].Label)
@@ -25,7 +25,7 @@ function tRun(){
 
 function tide(pos){
 	var cell,tl,left;
-	nt = config.nTrail;
+	nt = cfig.nTrail;
 	par = nt[nt.length-pos]? nt[nt.length-pos] : nt[nt.length-1];
 	cell = $("#t" +par); 
 	$("#z1 a").css("fontWeight","normal");
@@ -40,8 +40,8 @@ function tide(pos){
 
 function nRun(){
 	var nTrail,node,t,t2,t1,pre,tm0,arr,ind,ret,t3;
-	nTrail = config.nTrail;
-	node = config.nNode;
+	nTrail = cfig.nTrail;
+	node = cfig.nNode;
 	t = !nset[node].Link? nTrail.slice(0,-1) : nTrail;
 	t2 = t[t.length-2];
 	t1 = t[t.length-1];
@@ -53,18 +53,16 @@ function nRun(){
 		ind = 0;
 		domArr(pre,ind,arr,1);
 		arr = nset["Couplers"].Link;
-		ind = $.inArray(config.coupler,arr)
+		ind = $.inArray(bfig.coupler,arr)
 		domArr(pre,ind,arr,2);
 	}
-	
 //keeps link arr in s2 for repeat clone/delete/number action
-	else if(config.links){
+	else if(bfig.links){
 			t = nset[node].Link? t2 : t1;
 			arr = nset[t].Link;
 			ind = $.inArray(node,arr);
 			domArr(pre,ind,arr,1);
 		}
-		
 //end of trail
 	else if(!nset[node].Link){
 		arr = nset[t1].Link;
@@ -95,7 +93,7 @@ function nRun(){
 function down(e){
 	var cell,pid;
 	$("#save").html("Save");
-	config.links = false;
+	bfig.links = false;
 //switch
 	cell = typeof e === "object"? $(e.target) : $(e);
 	if(cell.prop("tagName") === "SPAN"){
@@ -114,16 +112,21 @@ function down(e){
 function tDown(cell){
 	var node;			
 	node = cell.attr("id").slice(1);
-	config.nNode = node;
+	cfig.nNode = node;
 	ind = cell.index();
-	//config.nTrail = config.trail.slice(0,ind +1);
-	config.nTrail = config.trail.slice(0,ind+1);
+	cfig.nTrail = cfig.trail.slice(0,ind+1);
 	nRun();
 	tide(2);
-	monitor = nset[config.coupler].monitor[config.monitor];
-	ww = win[monitor.win].window;
-//the code for clearing canvas not finalised yet
-	//ww.start(node);
+	if(nset[node].Type !== "System"){
+		monitor = nset[bfig.coupler].monitor[bfig.monitor];
+		if(monitor.show){
+			w = win[monitor.win];
+			w.close(true);
+			nr = bfig.screen >1? bfig.screen -1 : 0;
+			obj = openWindow(nr,monitor);
+			win[monitor.win] = obj;
+		}
+	}
 }
 
 function nDown(cell){
@@ -132,21 +135,12 @@ function nDown(cell){
 	if(node === "Couplers"){
 		return;
 	}
-	nt = config.nTrail;
-	par = cell.parent().attr("id");
-	nt = par === "s1"? nt = nt.slice(0,-1) : nt;
-	nt.push(node);
-	config.nTrail = nt;
-	config.trail = nt;
-	//nr = nset[node].Link? 2 : 1;
-	//tide(nr);
+	
 //change couplers
-	if(nset[node].Type === "System" && node !== config.coupler){
-		last = config.coupler;
+	if(nset[node].Type === "System" && node !== bfig.coupler){
+		last = bfig.coupler;
 		coupler = node;
-		config.trail = config.nTrail = ["Couplers"];
-		nRun();
-		tide(2);
+		cfig.nTrail = ["Couplers"];
 		node = "Couplers";
 	//split nset bset pset
 		bset = {}; pset = {};
@@ -170,14 +164,23 @@ function nDown(cell){
 		nset[coupler].Link = pset.Admin.Link;
 		$.each(pset.Admin.Link,function(i,v){
 			nset[v].Backlink = [coupler];
-		});		
+		});	
+		cfig = nset.Admin;
 	//storeSave();
-		config.store = nset[coupler].Store;
+		cfig.store = nset[coupler].Store;
 		wset = storeGet();
-		config.coupler = coupler;
-		config.monitor = pset.Admin.active;
+		bfig.coupler = coupler;
+		bfig.monitor = pset.Admin.active;
 	}
-	config.nNode = node;
+	else{
+		nt = cfig.nTrail;
+		par = cell.parent().attr("id");
+		nt = par === "s1"? nt = nt.slice(0,-1) : nt;
+		nt.push(node);
+		cfig.nTrail = nt;
+		cfig.trail = nt;
+	}
+	cfig.nNode = node;
 	nRun();
 	tRun();
 }
@@ -188,12 +191,12 @@ function aDown(cell){
 	id = cell.attr("id");
 	pre = id.charAt(0); 
 	id = id.slice(1);
-	node = config.nNode;
+	node = cfig.nNode;
 	nn = nset[node];
 	s = nset.Blazer.style;
 	tp = cell.parent().position().top +cell.position().top;
 	if(pre === "k"){
-		config.aTrail.key = id;
+		bfig.aTrail.key = id;
 		ret = aspects(node);
 		domArr("k",ret[0],ret[1],1,1);
 		if(id === "Backlink"){
@@ -213,7 +216,7 @@ function aDown(cell){
 		domArr(pre,ind,arr,2);
 	}
 	else{
-		if(config.aTrail.key === "Backlink"){
+		if(bfig.aTrail.key === "Backlink"){
 			if(s.foc === tp){
 				rerun(id);
 			}
@@ -223,11 +226,11 @@ function aDown(cell){
 				domArr("a",ind,arr,2);
 			}
 		}
-		else if(config.aTrail.key === "Link"){
+		else if(bfig.aTrail.key === "Link"){
 			act = s.foc === tp? 1 : 0;
 			if(pre === "l"){
-				fun = config.aTrail.fun = id;
-				config.aTrail.value = [];
+				fun = bfig.aTrail.fun = id;
+				bfig.aTrail.value = [];
 				if(cell.parent().attr("id")=== "s1"){
 					ret = aspects(node);
 					domArr("k",ret[0],ret[1],1,1);
@@ -235,7 +238,7 @@ function aDown(cell){
 				eval("f" +fun)(act,id,cell);
 			}
 			else{
-				fun = config.aTrail.fun;
+				fun = bfig.aTrail.fun;
 				eval("f" +fun)(act,id,cell);
 			}
 		}
@@ -243,11 +246,11 @@ function aDown(cell){
 //change value strings;
 	else{
 			if(s.foc === tp){
-				config.aTrail.value = id;
+				bfig.aTrail.value = id;
 			//cannot change type options here
-				if(config.aTrail.key === "Type"){
+				if(bfig.aTrail.key === "Type"){
 					nset[node].Type = id;
-					config.aTrail.value = id;
+					bfig.aTrail.value = id;
 					ret = aspects(node);
 					domArr("k",ret[0],ret[1],1,1);
 				}
@@ -259,16 +262,16 @@ function aDown(cell){
 					.focus()
 					.mouseleave(function(){
 						html = $(this).html();
-						$("#k" + config.aTrail.key +" :nth-child(2)")
+						$("#k" + bfig.aTrail.key +" :nth-child(2)")
 						.html(html)
-						config.aTrail.value = html;
+						bfig.aTrail.value = html;
 						aFinish()
 					});
 				}
 			}
 			else{
 			//to focus line
-				arr = aoptions(node,config.aTrail.key);
+				arr = aoptions(node,bfig.aTrail.key);
 				ind = cell.index();
 				domArr("w",ind,arr,2);
 			}
@@ -278,11 +281,11 @@ function aDown(cell){
 
 function aFinish(){
 	var at,key,fun,val,nn,coll,html,ret,type;
-	at = config.aTrail;
+	at = bfig.aTrail;
 	key = at.key;
 	fun = at.fun;
 	val = at.value;
-	nn = nset[config.nNode];
+	nn = nset[cfig.nNode];
 	switch(fun){
 		case "Crosslink":
 			if(!nn.Link){

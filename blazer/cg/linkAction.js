@@ -15,7 +15,7 @@ function fProduct(act,id,cell){
 function fType(act,id){
 	var node;
 	if(act){
-		node = config.nNode;
+		node = cfig.nNode;
 		if(id === "Product" && nset[node].Type === id){
 //creates an new assembly set for multiple products
 //assembly type voids all product aspects in original
@@ -24,10 +24,10 @@ function fType(act,id){
 		else{
 			lab = newName(id,node);
 		}
-		config.nTrail.push(lab);
-		config.trail = config.nTrail;
-		config.nNode = lab;
-		config.aTrail.key = "Context";
+		cfig.nTrail.push(lab);
+		cfig.trail = cfig.nTrail;
+		cfig.nNode = lab;
+		bfig.aTrail.key = "Context";
 		nRun();
 		tRun();			
 	}
@@ -86,7 +86,7 @@ function newProductAssembly(node){
 
 function fCrosslink(act,id,cell){
 	var nr,pid,tar,cxt,h,html
-	atv = config.aTrail.value;
+	atv = bfig.aTrail.value;
 	if(act){
 		atv.push(id);
 	}
@@ -134,8 +134,8 @@ function fCrosslink(act,id,cell){
 function fClone(act,id,cell){
 	var nt,node,par,ind,nn,label,count,nodes;
 	if(act){
-		nt = config.nTrail;
-		node = config.nNode;
+		nt = cfig.nTrail;
+		node = cfig.nNode;
 		par = nt[nt.length-2];
 		ind = $.inArray(node,nset[par].Link);
 		nn = newLab();
@@ -148,8 +148,8 @@ function fClone(act,id,cell){
 		nset[par].Link.splice(ind +1,0,nn);
 		
 		nt[nt.length-1] = nn;
-		config.trail = config.nTrail = nt;
-		config.nNode = nn;
+		cfig.trail = cfig.nTrail = nt;
+		cfig.nNode = nn;
 		
 		ind = 0;
 		nodes = [[nn]];
@@ -158,7 +158,7 @@ function fClone(act,id,cell){
 	else{
 		linkOptions(id,2);
 	}
-	config.links = true
+	bfig.links = true
 	nRun();
 	tRun();
 }
@@ -167,10 +167,10 @@ function fDelete(act,id,cell){
 	var nt,par,pLink,node,ind,ent,nodes;
 	if(act){
 	//remove from parent links	
-		nt = config.nTrail;
+		nt = cfig.nTrail;
 		par = nt[nt.length-2];
 		pLink = nset[par].Link;
-		node = config.nNode;
+		node = cfig.nNode;
 		ind = $.inArray(node,pLink);
 		pLink.splice(ind,1);
 		nset[node].deleted = true;
@@ -192,22 +192,22 @@ function fDelete(act,id,cell){
 		}
 	//reset node and trails
 		if(pLink.length > 0){
-			config.links = true; //keeps links menu in s2
+			bfig.links = true; //keeps links menu in s2
 			ind = pLink[ind -1]? ind -1 : 0;
 			ent = pLink[ind];
-			config.nNode = ent;
+			cfig.nNode = ent;
 			nt[nt.length-1] = ent;
-			config.trail = config.nTrail = nt;
+			cfig.trail = cfig.nTrail = nt;
 		}
 		else{
-			config.links = false; //allows removal of link menu	
+			bfig.links = false; //allows removal of link menu	
 			delete nset[par].Link;
-			config.nNode = par;
-			config.trail = config.nTrail = nt.slice(0,-1);
+			cfig.nNode = par;
+			cfig.trail = cfig.nTrail = nt.slice(0,-1);
 		}
 	}
 	else{
-		config.links = true;
+		bfig.links = true;
 	//selection to focus line
 		linkOptions(id,2);
 	}
@@ -221,7 +221,7 @@ function fKeys(act,id,cell){
 
 function fNumber(act,id,cell){
 	if(act){
-		nt = config.nTrail;
+		nt = cfig.nTrail;
 		par = nt[nt.length-2];
 		links = nset[par].Link;
 		$.each(links,function(i,v){
@@ -232,7 +232,7 @@ function fNumber(act,id,cell){
 	else{
 		linkOptions(id,2);
 	}
-	config.links = true
+	bfig.links = true
 	nRun();
 	tRun();
 }

@@ -18,29 +18,54 @@ function read(file){
 }
 
 function setConfig(){
-	config = nset.Blazer.config;
+	bfig = nset.Blazer.bfig;
+//blazer configuration
 //sets aspect trail to default in case saved
-	config.aTrail = {};
-	config.aTrail.key = "Type";
-	config.links = false;
-//move this to set up
-	wset = storeGet();
-//end move
+	bfig.aTrail = {};
+	bfig.aTrail.key = "Type";
+	bfig.links = false;
 	gui.Screen.Init();
-	config.screen = gui.Screen.screens.length;
+	bfig.screen = gui.Screen.screens.length;
+//coupler configuration;
+	cfig = nset.Admin;
+//word store
+	wset = storeGet();
 }
 
 function lerter(){
 	var nr,set,sun,obj;
 //load lert window first in order to examine other windows
 //in case more than 2 screens
-	nr = config.screen >1? config.screen -1 : 0;
+	nr = bfig.screen >1? bfig.screen -1 : 0;
 	set = nset.Lert.monitor;
 	set.show = false;
 	obj = openWindow(nr,set);
 	obj.on("loaded",function(){
+		set.win = win.length;
+		win.push(this);
 		blazer();
 	});
+}
+
+function blazer(){
+	var set,nr,obj,height,a,nodes,arr,cc;
+	obj = gui.Window.get();
+	set = nset.Blazer;
+	nr = bfig.screen >1? bfig.screen -1 : 0;
+	obj.x = set.position[nr][0];
+	obj.y = set.position[nr][1];
+	obj.on("move", function(){
+		nr = bfig.screen >1? bfig.screen -1 : 0;
+		set.position[nr] = [this.x,this.y];
+	});
+	obj.on("loaded", function(){
+		this.show(true);
+	});
+	obj.on("close", function(){
+		this.hide();
+		gui.App.quit();
+	});
+	setup();
 }
 
 function openWindow(nr,set){
@@ -57,51 +82,26 @@ function openWindow(nr,set){
 		"height": set.size[nr][1]
 	});
 	obj.on("resize", function(){
-		nr = config.screen >1? config.screen -1 : 0;
+		nr = bfig.screen >1? bfig.screen -1 : 0;
 		set.size[nr] = [this.width,this.height];
 	});
 	obj.on("move", function(){
-		nr = config.screen >1? config.screen -1 : 0;
+		nr = bfig.screen >1? bfig.screen -1 : 0;
 		console.log("screen " +nr)
 		set.position[nr] = [this.x,this.y];
-	});
-	obj.on("close", function(){
-		this.show(false);
-		set.show = false;
-	});
-	obj.on("loaded",function(){
-		set.win = win.length;
-		win.push(this);
 	});
 	return obj;
 }
 
-function blazer(){
-	var set,nr,obj,height,a,nodes,arr,cc;
-	obj = gui.Window.get();
-	set = nset.Blazer;
-	nr = config.screen >1? config.screen -1 : 0;
-	obj.x = set.position[nr][0];
-	obj.y = set.position[nr][1];
-	obj.on("move", function(){
-		nr = config.screen >1? config.screen -1 : 0;
-		set.position[nr] = [this.x,this.y];
-	});
-	obj.on("loaded", function(){
-		this.show(true);
-	});
-	obj.on("close", function(){
-		this.hide();
-		gui.App.quit();
-	});
-	setup();
-}
-
 function monitors(nr,arr,pass){
-	var set;
+	var set,i,v;
 	set = arr[pass];
 	$("#transfer").val(set.title);
-	openWindow(nr,set);
+	obj = openWindow(nr,set);
+	obj.on("loaded",function(){
+		set.win = win.length;
+		win.push(this);
+	});
 	pass += 1;
 	if(arr[pass]){
 		monitors(nr,arr,pass);
@@ -117,7 +117,7 @@ function setup(){
 	nRun();
 	tRun();
 //activate monitors
-	nr = config.screen >1? config.screen -1 : 0;
+	nr = bfig.screen >1? bfig.screen -1 : 0;
 	arr = [];
 	$.each(nset,function(k,v){
 		if(v.hasOwnProperty("Context")){
@@ -144,9 +144,9 @@ function finishUp(){
 		w.on("resize", function(){
 			var h,nr,diff,arr,ot,nt,l;
 			h = this.height;
-			oh = config.oh;
+			oh = bfig.oh;
 			diff = h - oh;
-			config.oh = h;
+			bfig.oh = h;
 			arr = ["s1","s2","m1"];
 			$.each(arr,function(k,v){
 				ot = $("#"+v).position().top;
@@ -180,20 +180,9 @@ function finishUp(){
 		});
 //resizing just used during sessions
 //see https://github.com/nwjs/nw.js/wiki/Preserve-window-state-between-sessions
-		config.oh = w.height;
+		bfig.oh = w.height;
 		tide(2);
 		w.show();
-	});
-}
-
-function scour(){
-	set = {};
-	
-	$.each(nset,function(k,v){
-		b = v.Backlink[0];
-		if(!nset[b]){
-			lert(b);
-		}
 	});
 }
 		

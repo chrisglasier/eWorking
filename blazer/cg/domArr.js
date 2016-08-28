@@ -21,7 +21,7 @@ switch(pre){
 		top: tp +"px",
 		backgroundColor: bgc
 	});
-	node = pre === "n"? config.nNode : config.aTrail.key;
+	node = pre === "n"? cfig.nNode : bfig.aTrail.key;
 	sl.empty();
 	$.each(arr,function(i,v){
 		if(kv){

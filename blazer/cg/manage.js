@@ -57,7 +57,7 @@ function mRun(){
 	ctr = 0;
 	$.each(nset,function(k,v){
 		if(v.Context === "Coupler"){
-			if(k === config.mTrail[0]){
+			if(k === bfig.mTrail[0]){
 				ind = ctr;
 			}
 			ctr +=1;
@@ -65,7 +65,7 @@ function mRun(){
 		}
 	});
 	domArr("m",ind,arr,1);
-	set = nset[config.coupler].monitor;
+	set = nset[bfig.coupler].monitor;
 	ret = monArr(set);
 	domArr("m",ret[0],ret[1],2);
 }
@@ -75,7 +75,7 @@ function monArr(set){
 	arr = [];
 	ctr = 0; ind = 0;
 	$.each(set,function(k,v){
-		if(k === config.mTrail[1]){
+		if(k === bfig.mTrail[1]){
 			ind = ctr;
 		}
 		ctr +=1;
@@ -96,7 +96,7 @@ function mDown(cell){
 	ptp = par.position().top;
 	ctp = cell.position().top;
 	
-	cm = config.mTrail;
+	cm = bfig.mTrail;
 	if(pid === "s1"){
 		node = id.slice(1);
 		cm = [node];
@@ -118,7 +118,7 @@ function mDown(cell){
 			else{
 				set.show = true;
 				td = "none";
-				nr = config.screen >1? config.screen -1 : 0;
+				nr = bfig.screen >1? bfig.screen -1 : 0;
 				wn = set.win;
 				win[wn].show();
 			}
@@ -130,13 +130,13 @@ function mDown(cell){
 	cell.css("fontWeight","bold");
 	ind = cell.index();
 	par.css("top",tp +"px");
-	config.mTrail = cm;
+	bfig.mTrail = cm;
 }
 
 function storeSave(){
 	var txt,path;
 	txt = macStringify(wset);
-	path = config.store;
+	path = bfig.store;
 	fs.writeFile(path, txt);
 }
 
