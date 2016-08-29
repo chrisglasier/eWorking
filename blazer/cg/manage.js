@@ -109,18 +109,15 @@ function mDown(cell){
 		if(ptp +ctp === s.foc){
 			node = cm[0];
 			set = nset[cm[0]].monitor[cm[1]];
-			wn = set.win;
 			if(set.show){
 				set.show = false;
+				win[set.win].close(true);
 				td = "line-through";
-				win[wn].hide();
 			}
 			else{
 				set.show = true;
 				td = "none";
-				nr = bfig.screen >1? bfig.screen -1 : 0;
-				wn = set.win;
-				win[wn].show();
+				openMonitor(set);
 			}
 			cell.css("textDecoration", td);
 		}
@@ -133,10 +130,17 @@ function mDown(cell){
 	bfig.mTrail = cm;
 }
 
+function openMonitor(set){
+	var nr,obj;
+	nr = bfig.screen >1? bfig.screen -1 : 0;
+	obj = openWindow(nr,set);
+	win[set.win] = obj;
+}
+
 function storeSave(){
 	var txt,path;
 	txt = macStringify(wset);
-	path = bfig.store;
+	path = cfig.Store;
 	fs.writeFile(path, txt);
 }
 

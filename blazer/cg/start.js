@@ -96,11 +96,9 @@ function openWindow(nr,set){
 function monitors(nr,arr,pass){
 	var set,i,v;
 	set = arr[pass];
-	$("#transfer").val(set.title);
 	obj = openWindow(nr,set);
 	obj.on("loaded",function(){
-		set.win = win.length;
-		win.push(this);
+		win[set.win] = this;
 	});
 	pass += 1;
 	if(arr[pass]){
@@ -116,22 +114,32 @@ function setup(){
 	menu();
 	nRun();
 	tRun();
-//activate monitors
+//create active monitors
 	nr = bfig.screen >1? bfig.screen -1 : 0;
 	arr = [];
+	i =1;
 	$.each(nset,function(k,v){
 		if(v.hasOwnProperty("Context")){
 			if(v.Context === "Coupler"){
 				if(v.hasOwnProperty("monitor")){
 					$.each(v.monitor,function(k,v){
-						arr.push(v);
+						v.win  = i;
+						i +=1;
+						if(v.show){
+							arr.push(v);
+						}
 					})
 				}
 			}
 		}
 	});
 	pass = 0;
-	monitors(nr,arr,pass);
+	if(arr.length >0){
+		monitors(nr,arr,pass);
+	}
+	else{
+		finishUp();
+	}
 }
 
 function finishUp(){
@@ -141,6 +149,7 @@ function finishUp(){
 		w = gui.Window.get();
 		b = nset.Blazer;
 		s = b.style;
+		$("#transfer").val(bfig.coupler);
 		w.on("resize", function(){
 			var h,nr,diff,arr,ot,nt,l;
 			h = this.height;

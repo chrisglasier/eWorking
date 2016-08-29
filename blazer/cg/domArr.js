@@ -1,7 +1,7 @@
 //populates vertical sliders
 
 function domArr(pre,ind,arr,nr,kv){
-	var s,ind,tp,hind,sl,bgc,node,color,hi,ks,vs,html,id,bgc;
+	var s,ind,tp,hind,sl,bgc,node,res,color,hi,ks,vs,html,id,bgc;
 	s = nset.Blazer.style;
 	s.foc = ($("body").height() - s.rh)/2;
 //no link options hilited
@@ -26,13 +26,16 @@ switch(pre){
 	$.each(arr,function(i,v){
 		if(kv){
 			if(v[1].constructor === Array){
-				v[1] = v[1].join(" ");
+				html = $.extend(true,[],v[1]).join("-");
+			}
+			else{
+				html = v[1];
 			}
 			ks = "<span>" +v[0] +"</span>";
-			vs = "<span>" +v[1] +"</span>";
+			vs = "<span>" +html +"</span>";
 			html = [ks,vs].join(" : ");
 			id = "k" +v[0];
-		}	
+		}
 		else{
 			if(pre === "n"){
 				html = nset[v].Label;
@@ -40,8 +43,8 @@ switch(pre){
 			}
 			else{
 				if(v.constructor === Array){
-					html = v[0];
-					id = pre +v[1];
+					html = $.extend(true,[],v).join("-");
+					id = pre + bfig.aTrail.key; ;
 				}
 				else{
 					html = v;

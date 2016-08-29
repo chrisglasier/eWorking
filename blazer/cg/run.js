@@ -119,12 +119,11 @@ function tDown(cell){
 	tide(2);
 	if(nset[node].Type !== "System"){
 		monitor = nset[bfig.coupler].monitor[bfig.monitor];
+		$("#transfer").val(bfig.coupler);
 		if(monitor.show){
 			w = win[monitor.win];
 			w.close(true);
-			nr = bfig.screen >1? bfig.screen -1 : 0;
-			obj = openWindow(nr,monitor);
-			win[monitor.win] = obj;
+			openMonitor(monitor);
 		}
 	}
 }
@@ -207,8 +206,17 @@ function aDown(cell){
 			arr = linkArr(node);
 			pre = "l";
 			ind = Math.floor(arr.length/2);
-		}
+		} 
 		else{
+			if(id === "Note"){
+				$("#transfer").val(nn.Note);
+				set = nset.Blazer.monitor.Note;
+				if(set.show){
+					win[set.win].close(true);
+				}
+				openMonitor(set);
+				set.show = true;
+			}
 			arr = aoptions(node,id);
 			pre = "w";
 		}
@@ -242,8 +250,7 @@ function aDown(cell){
 				eval("f" +fun)(act,id,cell);
 			}
 		}
-//devices here	
-//change value strings;
+//change value arrays and strings;
 	else{
 			if(s.foc === tp){
 				bfig.aTrail.value = id;
@@ -256,17 +263,47 @@ function aDown(cell){
 				}
 				else{
 			//editable options for recycling
-					cell
-					.attr("contenteditable",true)
-					.css("cursor","text")
-					.focus()
-					.mouseleave(function(){
-						html = $(this).html();
-						$("#k" + bfig.aTrail.key +" :nth-child(2)")
-						.html(html)
-						bfig.aTrail.value = html;
-						aFinish()
+					val = cell.html().split("-");
+					nr = val.constructor === Array? val.length : 1;
+					but = buttoner(cell.index());
+					but.click(function(e) {
+						e.stopPropagation();
+						k = $(cell).children();
+						if(k.length === 1){
+							html = val = $(k[0]).val();
+						}
+						else{
+							val = [];
+							$.each(k,function(i,v){
+								vv = $(v).val();
+								nv = isNaN(vv)? 0 : vv;
+								val.push(parseInt(nv));
+							});
+							html = $.extend(true,[],val).join("-");
+						}
+						key = bfig.aTrail.key;
+						$("#k" + key +" :nth-child(2)").html(html)
+						nn[key] = val;
+						updateStore(nn.Type,key,val);
 					});
+					$("#s2").append(but);
+										
+					cell.empty();
+					cell.click(function(e) {
+						e.stopPropagation();
+					});
+					
+					w = $("#s2").width();
+					pc = w/nr/w *100;
+					type = val.length === 6? "xyz" : false;
+					i = 0;
+					while(i <nr){
+						w = $("#s2").width();
+						pc = w/nr/w *100;
+						inp = inputter(val,i,pc,type);
+						cell.append(inp);
+						i +=1;
+					}	
 				}
 			}
 			else{

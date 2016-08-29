@@ -8,7 +8,7 @@ function storeGet(){
 }
 
 function updateStore(t,k,v){
-	var vals,type;
+	var vals,vs,name,ind,nv,diff,xsts;
 	vals = wset.values;
 	if(!vals[k]){
 		vals[k] = {}
@@ -17,11 +17,26 @@ function updateStore(t,k,v){
 		vals[k][t] = [];
 	}
 //remove nr suffix if any
-	vs = v.split(" ");
-	name = typeof vs[1] === Number? vs[0] : v;
-	ind = $.inArray(vs[0],vals[k][t]);
-	if(ind <0){
-		vals[k][t].push(name); 
+	if(typeof v ==="string"){
+		vs = v.split(" ");
+		name = typeof vs[1] === Number? vs[0] : v;
+		ind = $.inArray(vs[0],vals[k][t]);
+		if(ind <0){
+			vals[k][t].push(name); 
+		}
+	}
+	else{
+		nv = v;
+		xsts = false;
+		$.each(vals[k][t],function(i,v){
+			diff = $(nv).not(v).get();
+			if(diff == ""){
+				xsts = true;
+			}
+		});
+		if(xsts === false){
+			vals[k][t].push(v); 
+		}
 	}
 }
 
@@ -74,13 +89,11 @@ function aoptions(node,key){
 		}
 	}
 	if(!arr){
-		val = nset[node][key];
-		val = val.constructor === Array? [val] : val;
-		arr = [val];
+		arr = nset[node][key];
 	}
-	
 	return arr;
 }
+
 function backlinkArr(node){
 	var arr;
 	arr = [];
@@ -165,3 +178,46 @@ function shifter(cell){
 	$("#s1,#s2").css("top",tp +"px");
 }
 
+function buttoner(ind){
+	var s;
+	s = nset.Blazer.style;
+	but = $(document.createElement("button"))
+	.html("<")
+	.css({
+		cursor:"pointer",
+		position: "absolute",
+		top: ind *s.rh +"px",
+		left: - s.rh/2 +"px",
+		width: s.rh /2 +"px",
+		height: s.rh +"px",
+		color: s.lightblue,
+		fontWeight: "bolder",
+		backgroundColor: s.green,
+		border: 0
+	});
+	return but;
+}
+
+function inputter(val,i,pc,type){
+	var xyz;
+	xyz = ["-x","x+","-y","y+","-z","z+"];
+	if(type === "xyz"){
+		val[i] = val[i] === 0? xyz[i] : val[i];
+	}
+	inp = $(document.createElement("input"))
+	.val(val[i])
+	.css({
+		width: pc +"%",
+		height: "100%",
+		border: 0
+	})
+	.on('focus', function (e) {
+		$(this)
+		.one('mouseup', function () {
+			$(this).select();
+			return false;
+		})										
+		.select();
+	})
+	return inp;
+}
