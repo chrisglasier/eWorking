@@ -61,13 +61,24 @@ function mRun(){
 				ind = ctr;
 			}
 			ctr +=1;
-			arr.push([v.Label,k]);
+			arr.push(v.Label);
 		}
 	});
+	mt = bfig.mTrail;
 	domArr("m",ind,arr,1);
-	set = nset[bfig.coupler].monitor;
+	set = nset[mt[0]].monitor;
 	ret = monArr(set);
 	domArr("m",ret[0],ret[1],2);
+	strike(mt);
+}
+
+function strike(mt){
+	$("#s2").children().each(function(){
+		mn = $(this).html();
+		mon = nset[mt[0]].monitor[mn];
+		td = mon.show? null : "line-through";
+		$(this).css("textDecoration",td);
+	});
 }
 
 function monArr(set){
@@ -79,15 +90,14 @@ function monArr(set){
 			ind = ctr;
 		}
 		ctr +=1;
-		sw = v.show? "t" : "f";
-		arr.push([k,k,sw]);
+		arr.push(k);
 	});
 	ret = [ind,arr];
 	return ret;
 }
 
 function mDown(cell){
-	var s,par,pid,id,ptp,ctp,cm;
+	var s,par,pid,id,ptp,ctp,mt;
 	s = nset.Blazer.style;
 	par = cell.parent();
 	pid = par.attr("id");
@@ -96,19 +106,20 @@ function mDown(cell){
 	ptp = par.position().top;
 	ctp = cell.position().top;
 	
-	cm = bfig.mTrail;
+	mt = bfig.mTrail;
 	if(pid === "s1"){
 		node = id.slice(1);
-		cm = [node];
+		mt = [node];
 		set = nset[node].monitor;
 		ret = monArr(set);
 		domArr("m",ret[0],ret[1],2);
+		strike(mt);
 	}
 	else{
-		cm[1] = id.slice(1);
+		mt[1] = id.slice(1);
 		if(ptp +ctp === s.foc){
-			node = cm[0];
-			set = nset[cm[0]].monitor[cm[1]];
+			node = mt[0];
+			set = nset[mt[0]].monitor[mt[1]];
 			if(set.show){
 				set.show = false;
 				win[set.win].close(true);
@@ -127,7 +138,7 @@ function mDown(cell){
 	cell.css("fontWeight","bold");
 	ind = cell.index();
 	par.css("top",tp +"px");
-	bfig.mTrail = cm;
+	bfig.mTrail = mt;
 }
 
 function openMonitor(set){

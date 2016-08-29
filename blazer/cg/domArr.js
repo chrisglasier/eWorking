@@ -44,7 +44,7 @@ switch(pre){
 			else{
 				if(v.constructor === Array){
 					html = $.extend(true,[],v).join("-");
-					id = pre + bfig.aTrail.key; ;
+					id = pre + bfig.aTrail.key; 
 				}
 				else{
 					html = v;
@@ -52,15 +52,14 @@ switch(pre){
 				}
 			}
 		}
-		td = pre === "m" && v[2] === "f"? "line-through" : null;
+		//td = pre === "m" && v[2] === "f"? "line-through" : null;
 		sl.append($(document.createElement("li"))
 			.html(html)
 			.attr("id", id)
 			.attr("title", id)
 			.css({
 				height: s.rh +"px",
-				lineHeight:s.rh +"px",
-				textDecoration: td
+				lineHeight:s.rh +"px"
 			})
 		)
 	})

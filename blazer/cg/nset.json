@@ -332,7 +332,7 @@
 		"Link": ["Hotel","Blazer"]
 	},
 	"Hotel": {
-		"Label": "Hotel Project",
+		"Label": "Hotel",
 		"Type": "System",
 		"Context": "Coupler",
 		"Backlink": ["Couplers"],
@@ -349,7 +349,7 @@
 					[-5,2],
 					[2851,4]
 				],
-				"show": false,
+				"show": true,
 				"title": "Hotel",
 				"name": "Hotel",
 				"toolbar": true,
