@@ -2,7 +2,7 @@
 
 function tRun(){
 	var sl,p;
-	sl = $("#z1");
+	sl = $("#nameTrail");
 	sl.empty();
 	p = "t";
 	s = nset.Blazer.style;
@@ -28,14 +28,14 @@ function tide(pos){
 	nt = cfig.nTrail;
 	par = nt[nt.length-pos]? nt[nt.length-pos] : nt[nt.length-1];
 	cell = $("#t" +par); 
-	$("#z1 a").css("fontWeight","normal");
+	$("#nameTrail a").css("fontWeight","normal");
 	cell.css("fontWeight","bold");
 	w = gui.Window.get();
 	ww = w.width;
 	cl = cell.position().left; 
 	cw = cell.width();
 	left = (ww -cw)/2 -cl;
-	$("#z1").css("left", left +"px");
+	$("#nameTrail").css("left", left +"px");
 }
 
 function nRun(){
@@ -56,7 +56,7 @@ function nRun(){
 		ind = $.inArray(bfig.coupler,arr)
 		domArr(pre,ind,arr,2);
 	}
-//keeps link arr in s2 for repeat clone/delete/number action
+//keeps link arr in slider2 for repeat clone/delete/number action
 	else if(bfig.links){
 			t = nset[node].Link? t2 : t1;
 			arr = nset[t].Link;
@@ -174,7 +174,7 @@ function nDown(cell){
 	else{
 		nt = cfig.nTrail;
 		par = cell.parent().attr("id");
-		nt = par === "s1"? nt = nt.slice(0,-1) : nt;
+		nt = par === "slider1"? nt = nt.slice(0,-1) : nt;
 		nt.push(node);
 		cfig.nTrail = nt;
 		cfig.trail = nt;
@@ -239,7 +239,7 @@ function aDown(cell){
 			if(pre === "l"){
 				fun = bfig.aTrail.fun = id;
 				bfig.aTrail.value = [];
-				if(cell.parent().attr("id")=== "s1"){
+				if(cell.parent().attr("id")=== "slider1"){
 					ret = aspects(node);
 					domArr("k",ret[0],ret[1],1,1);
 				}
@@ -268,9 +268,12 @@ function aDown(cell){
 					but = buttoner(cell.index());
 					but.click(function(e) {
 						e.stopPropagation();
+						key = bfig.aTrail.key;
 						k = $(cell).children();
 						if(k.length === 1){
 							html = val = $(k[0]).val();
+							nn[key] = val;
+							tRun();
 						}
 						else{
 							val = [];
@@ -280,25 +283,24 @@ function aDown(cell){
 								val.push(parseInt(nv));
 							});
 							html = $.extend(true,[],val).join("-");
+							nn[key] = val;
 						}
-						key = bfig.aTrail.key;
 						$("#k" + key +" :nth-child(2)").html(html)
-						nn[key] = val;
 						updateStore(nn.Type,key,val);
 					});
-					$("#s2").append(but);
+					$("#slider2").append(but);
 										
 					cell.empty();
 					cell.click(function(e) {
 						e.stopPropagation();
 					});
 					
-					w = $("#s2").width();
+					w = $("#slider2").width();
 					pc = w/nr/w *100;
 					type = val.length === 6? "xyz" : false;
 					i = 0;
 					while(i <nr){
-						w = $("#s2").width();
+						w = $("#slider2").width();
 						pc = w/nr/w *100;
 						inp = inputter(val,i,pc,type);
 						cell.append(inp);
@@ -328,7 +330,7 @@ function aFinish(){
 			if(!nn.Link){
 				nn.Link = [];
 			}
-			coll = $("#s2").children().slice(1);
+			coll = $("#slider2").children().slice(1);
 			coll.each(function(){
 				html = $(this).html();
 				if(html !== ""){

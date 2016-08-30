@@ -41,7 +41,7 @@ function macToggle(cell){
 
 function macMonitor(){
 	var id,pre;
-	id = $("#s2 li:first-child").attr("id");
+	id = $("#slider2 li:first-child").attr("id");
 	pre = id.charAt(0);
 	if(pre === "m"){
 		nRun();
@@ -69,11 +69,11 @@ function mRun(){
 	set = nset[mt[0]].monitor;
 	ret = monArr(set);
 	domArr("m",ret[0],ret[1],2);
-	strike(mt);
+	//strike(mt);
 }
 
 function strike(mt){
-	$("#s2").children().each(function(){
+	$("#slider2").children().each(function(){
 		mn = $(this).html();
 		mon = nset[mt[0]].monitor[mn];
 		td = mon.show? null : "line-through";
@@ -107,13 +107,13 @@ function mDown(cell){
 	ctp = cell.position().top;
 	
 	mt = bfig.mTrail;
-	if(pid === "s1"){
+	if(pid === "slider1"){
 		node = id.slice(1);
 		mt = [node];
 		set = nset[node].monitor;
 		ret = monArr(set);
 		domArr("m",ret[0],ret[1],2);
-		strike(mt);
+		//strike(mt);
 	}
 	else{
 		mt[1] = id.slice(1);
@@ -130,7 +130,7 @@ function mDown(cell){
 				td = "none";
 				openMonitor(set);
 			}
-			cell.css("textDecoration", td);
+			//cell.css("textDecoration", td); ... unnecessary?
 		}
 	}
 	tp = s.foc - (cell.index() *s.rh);

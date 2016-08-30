@@ -156,10 +156,10 @@ function finishUp(){
 			oh = bfig.oh;
 			diff = h - oh;
 			bfig.oh = h;
-			arr = ["s1","s2","m1"];
+			arr = ["slider1","slider2","manager"];
 			$.each(arr,function(k,v){
 				ot = $("#"+v).position().top;
-				nt = v === "m1"? ot +diff : ot +diff *.5;
+				nt = v === "manager"? ot +diff : ot +diff *.5;
 				$("#"+v).css("top",nt +"px");
 			});
 			tide(2)
@@ -169,10 +169,10 @@ function finishUp(){
 			fontSize: s.font,
 			backgroundColor: s.lightgrey
 		});	
-		$("#m1,#z1").css("height", s.rh +"px");
-		$("#z1").css("backgroundColor",s.white);
+		$("#manager,#nameTrail").css("height", s.rh +"px");
+		$("#nameTrail").css("backgroundColor",s.white);
 //cannot use hide/show as negates in-line block children;
-		$("#m1").css({
+		$("#manager").css({
 			top: $("body").height() - s.rh +"px",
 			backgroundColor: s.white
 		});
@@ -181,10 +181,10 @@ function finishUp(){
 			height: s.rh +"px",
 			lineHeight: s.rh +"px"
 		});
-		$("#s1,#s2,#z1").click(function(e){
+		$("#slider1,#slider2,#nameTrail").click(function(e){
 			down(e);
 		});
-		$("#m1").click(function(e){
+		$("#manager").click(function(e){
 			mown(e);
 		});
 //resizing just used during sessions
@@ -197,7 +197,7 @@ function finishUp(){
 		
 function menu(){
 	var m,b,s,sra,ga;
-	m = $("#m1");
+	m = $("#manager");
 	b = nset.Blazer;
 	s = b.style;
 	m.append($(document.createElement("img"))

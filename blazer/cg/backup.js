@@ -98,7 +98,7 @@ function backlinkArr(node){
 	var arr;
 	arr = [];
 	$.each(nset[node].Backlink,function(i,v){
-		arr.push([nset[v].Label,v]);
+		arr.push(v);
 	});
 	return arr;
 }
@@ -121,13 +121,13 @@ function linkArr(){
 					if(ind >0){
 						karr[ind] = v;
 					}
-					arr.push([karr.join(" "),v])
+					arr.push(v)
 				});
 			break;
 			default:
 	//can use variables as above
 			karr = $.extend(true,[],k[v]);
-			arr.push([karr.join(" "),v] );
+			arr.push(v );
 		}
 	});
 	return arr;
@@ -137,7 +137,7 @@ function linkOptions(id,sn){
 	var arr,ind;
 	arr = linkArr();
 	$.each(arr,function(i,v){
-		if(v[1] === cfig.aTrail.fun){
+		if(v === bfig.aTrail.fun){
 			ind = i;
 		}
 	});
@@ -156,17 +156,7 @@ function crosslinkContexts(id,sn){
 
 function crosslinksContextLabels(pre,id,sn,h){
 	var arr,k,v,ent,ind;
-	arr = [];
-	$.each(nset,function(k,v){
-		if(v.Context === id){
-			lab = h? v.Label : '';
-			arr.push([lab,k]);
-		}
-	});
-	ent = pre === "a"? ["Remove all","remove"] : ["Add all","add"];
-	arr.unshift(ent)
-	ind = 0;
-	domArr(pre,ind,arr,sn);
+	
 }
 
 function shifter(cell){
@@ -175,7 +165,7 @@ function shifter(cell){
 	cell.css("fontWeight","bold");
 	ind = cell.index();
 	tp = s.foc - (ind *s.rh);
-	$("#s1,#s2").css("top",tp +"px");
+	$("#slider1,#slider2").css("top",tp +"px");
 }
 
 function buttoner(ind){

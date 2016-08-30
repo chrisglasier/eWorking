@@ -14,11 +14,11 @@
 		div{
 			-webkit-user-select: none;
 		}
-		#m1{
+		#manager{
 			position: absolute;
 			width: 100%;
 		}
-		#z1{
+		#nameTrail,#monTrail{
 			position: absolute;
 			white-space: nowrap;
 		}
@@ -28,7 +28,7 @@
 			list-style-type: none;
 			-webkit-user-select: none; 
 		}
-		#s2{
+		#slider2{
 			left: 50%;
 		}
 		li{

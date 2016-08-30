@@ -120,11 +120,11 @@
 		"Label": "Bedroom",
 		"Backlink": ["19"],
 		"Link": ["148"],
-		"Dims": [2700,2675,1000],
+		"Dims": [1500,2075,1000],
 		"MinMargin": [300,300,300,300,0,0],
 		"Margin": [300,300,300,300,0,0],
 		"Rotation": [0,0,0],
-		"Float": ["left","front","bottom"],
+		"Float": ["left","forward","down"],
 		"Note": "This positions clones"
 	},
 	"21": {
@@ -230,12 +230,12 @@
 	},
 	"Admin": {
 		"trail": ["Couplers","Hotel","1","3","8","12","10","19","20","148","151","153"],
-		"nTrail": ["Couplers","Hotel","1","3","8","12","10","19","20"],
-		"nNode": "20",
+		"nTrail": ["Couplers","Hotel","1","3","8","12"],
+		"nNode": "12",
 		"Store": "../remote/stores/building.json",
-		"active": "3D Modeller",
+		"active": "3d Modeller",
 		"monitor": {
-			"3D Modeller": {
+			"3d Modeller": {
 				"scene": {
 					"camera": "Perspective"
 				}
@@ -292,11 +292,10 @@
 		},
 		"bfig": {
 			"coupler": "Hotel",
-			"monitor": "3D Modeller",
-			"mTrail": ["Hotel","3D Modeller"],
+			"monitor": "3d Modeller",
+			"mTrail": ["Hotel","3d Modeller"],
 			"aTrail": {
-				"key": "Margin",
-				"value": "Margin"
+				"key": "Link"
 			},
 			"links": false,
 			"screen": 2,
@@ -312,7 +311,7 @@
 			"white": "rgb(255, 255, 255)",
 			"lightgrey": "rgb(245, 245, 245)",
 			"lightblue": "rgb(240,255,255)",
-			"lightred": "rgb(255,240,240)",
+			"lightred": "rgb(255,255,255)",
 			"red": "rgb(255,0,0)",
 			"green": "rgb(0,100,30)",
 			"foc": 225
@@ -339,7 +338,7 @@
 		"Location": "../remote/namesets/hotel.json",
 		"Store": "../remote/stores/building.json",
 		"monitor": {
-			"3D Modeller": {
+			"3d Modeller": {
 				"url": "../../remote/monitors/3D modeller.html",
 				"size": [
 					[514,451],
@@ -349,7 +348,7 @@
 					[-5,2],
 					[2851,4]
 				],
-				"show": true,
+				"show": false,
 				"title": "Hotel",
 				"name": "Hotel",
 				"toolbar": true,

@@ -101,27 +101,45 @@ function fCrosslink(act,id,cell){
 				shifter(cell);
 			}
 			else{
-				crosslinksContextLabels("w",id,1,true);
-				crosslinksContextLabels("a",id,2,false);
-				$("#aremove").html("");
+				arr = [];
+				$.each(nset,function(k,v){
+					if(v.Context === id){
+						arr.push(k);
+					}
+				});
+				arr.unshift("All");
+				s = nset.Blazer.style;
+				ind = Math.floor(s.foc /s.rh) -1;
+				domArr("w",ind,arr,1);
+				domArr("a",ind,arr,2);
+				$("#slider2").children().each(function(){
+					$(this).html("");
+				});
 			}
 		break;
 		default:
 		if(act){
-			$("#aremove").html("Remove all");
-			pid = cell.parent().attr("id");
-			tar = pid === "s1"? "a" : "w";
-			if(id === "add" || id === "remove"){
-				cxt = atv[1];
-				h = id === "add"? false : true;
-				crosslinksContextLabels("w",cxt,1,h);
-				h = id === "add"? true : false;
-				crosslinksContextLabels("a",cxt,2,h);
+			html = cell.html();
+			op = cell.attr("id").charAt(0);
+			np = op === "a"? "w" : "a";
+			if(id === "All"){
+				par = op === "a"? 1 : 2;
+				$("#slider" +par).children().each(function(){
+					cid = $(this).attr("id");
+					pre = cid.charAt(0);
+					id = cid.slice(1);
+					html = $(this).html();
+					if(html === ""){
+						$(this).html($("#" +op+id).html());
+						$("#" +op+id).html("")
+					}
+				});
+				$("#"+ op +"All").html("All");
 			}
 			else{
-				html = cell.html();
-				$("#" +tar +id).html(html);
+				$("#" +np +id).html(html);
 				cell.html("");
+				$("#wAll").html("All");
 			}
 			aFinish();
 		}
@@ -192,7 +210,7 @@ function fDelete(act,id,cell){
 		}
 	//reset node and trails
 		if(pLink.length > 0){
-			bfig.links = true; //keeps links menu in s2
+			bfig.links = true; //keeps links menu in slider2
 			ind = pLink[ind -1]? ind -1 : 0;
 			ent = pLink[ind];
 			cfig.nNode = ent;

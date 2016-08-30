@@ -10,7 +10,7 @@ function domArr(pre,ind,arr,nr,kv){
 	if(sind >-2){
 		hind = ind +1;
 	}
-	sl = $("#s" +nr);
+	sl = $("#slider" +nr);
 switch(pre){
 		case "n": bgc = s.lightgrey; break;
 		case "m": bgc = s.lightred; break;
@@ -47,12 +47,11 @@ switch(pre){
 					id = pre + bfig.aTrail.key; 
 				}
 				else{
-					html = v;
+					html = isNaN(parseInt(v))? v : nset[v].Label;
 					id = pre +v;
 				}
 			}
 		}
-		//td = pre === "m" && v[2] === "f"? "line-through" : null;
 		sl.append($(document.createElement("li"))
 			.html(html)
 			.attr("id", id)
@@ -64,7 +63,7 @@ switch(pre){
 		)
 	})
 	if(hind){
-		$("#s" +nr +" li:nth-child(" +hind +")")
+		$("#slider" +nr +" li:nth-child(" +hind +")")
 		.css("fontWeight","bold");
 	}
 }
