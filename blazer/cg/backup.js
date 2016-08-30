@@ -89,7 +89,7 @@ function aoptions(node,key){
 		}
 	}
 	if(!arr){
-		arr = nset[node][key];
+		arr = [nset[node][key]];
 	}
 	return arr;
 }
@@ -152,11 +152,6 @@ function crosslinkContexts(id,sn){
 	});
 	ind = $.inArray(id,arr);
 	domArr("a",ind,arr,sn);
-}
-
-function crosslinksContextLabels(pre,id,sn,h){
-	var arr,k,v,ent,ind;
-	
 }
 
 function shifter(cell){
