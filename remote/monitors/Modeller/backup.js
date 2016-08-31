@@ -37,7 +37,7 @@ return nodes;
 function helpBox(node) {
 	var obj,helper,ret;
 	obj = scene.getObjectByName(node);
-	helper = new THREE.BoundingBoxHelper(obj, 0xffffff);
+	helper = new THREE.BoundingBoxHelper(obj, 0xff0000);
 	helper.name = "helper";
 	helper.update();
 	ret = {};

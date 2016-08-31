@@ -16,7 +16,7 @@ function setScene(project){
 	
 	scene = new THREE.Scene();
 	
-	cam = nset.Admin.monitor["3D Modeller"].scene.camera;
+	cam = nset.Admin.monitor["Modeller"].scene.camera;
 
 	ocam = new THREE.OrthographicCamera( w/-2, w/2, h/2, h/-2, 1, 1000 );
 	ocam.position.x = 200;

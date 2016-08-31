@@ -102,7 +102,7 @@ function setProduct(obj){
 }
 
 function bounds(nodes){
-	var xyz,node,pode,nn,cs,d,sp,obj,tot,adj,geo,mat,spaceBox,par,retmax,min,md,w,sc;
+	var xyz,node,pode,nn,m,d,sp,obj,tot,adj,geo,mat,spaceBox,par,retmax,min,md,w,sc;
 //from bottom up - only products have fixed dimensions and positioning
 	nodes.reverse();
 	xyz = ["x","y","z"];
@@ -110,22 +110,27 @@ function bounds(nodes){
 		node = v[0];
 		pode = v[1];
 		nn = nset[node];
-//add Void object to parent to force helpBox
-		if(nn.hasOwnProperty("Void")){
-			cs = nn.Void.Current;
+//add Margin object to parent to force helpBox
+		if(nn.hasOwnProperty("Margin")){
+			m = nn.Margin;
 			d = nn.Dims;
 			sp = [];
-			obj = scene.getObjectByName(node); 
-			$.each(xyz,function(i,v){
-				tot = cs[v][0] +cs[v][1]
-				sp.push(d[i] +tot);
-				adj = cs[v][0] === 0? -cs[v][1]/2 : (cs[v][1]-cs[v][0])/2
-				obj.position[v] = adj;
-			});
+			obj = scene.getObjectByName(node);
+			i = 0;
+			di = 0; 
+			while(i <m.length){
+				tot = m[i] +m[i+1];
+				sp.push(d[di] +tot);
+				adj = m[i] === 0? -m[i+1]/2 : (m[i+1]-m[i])/2;
+				obj.position[xyz[di]] = adj;
+				i +=2;
+				di +=1;
+			};
+			nn.Dims = sp;
 			geo = new THREE.BoxGeometry( sp[0], sp[1], sp[2] );
 			mat = new THREE.MeshBasicMaterial( {
 				wireframe:true,
-				color: 0xffffff
+				color: 0xdddddd
 			} );
 			spaceBox = new THREE.Mesh( geo, mat );
 			r = nn.Rotation;
@@ -133,37 +138,34 @@ function bounds(nodes){
 			$.each(set.Rotation,function(i,v){
 				set.Rotation[i] *= Math.PI/180;
 			});
-			par = scene.getObjectByName(pode); 
+			spaceBox.visible = false;
+			par = scene.getObjectByName(pode);
 			par.add(spaceBox);
-		}	
+		}
 		if(nn.hasOwnProperty("Dims")){
 			ret = helpBox(node);
 			max = []; min = []; 
-			d = nset[node].Dims;
+			d = nn.Dims;
 			$.each(xyz,function(i,v){
 				min[i] = ret.min[v] === Infinity? 0 : ret.min[v];
 				max[i] = ret.max[v] === -Infinity? 0 : ret.max[v];
 				d[i] = min[i] <0? Math.abs(min[i]) + max[i] : max[i] - min[i];
 				d[i] = Math.round(d[i])
-			})
-		}	
+			});
+			nn.Dims = d;
+		}
 	});
+	scene.add(ret.box);
 	md = Math.max(d[0],d[1],d[2]);
 	w = $("body").width(); h = $("body").height();
 	sc = Math.min(w/md,h/md)/2;
-//during development
-	scene.add(ret.box);
-//just to get bounding box dims
-	if(spaceBox){
-		par.remove(spaceBox);
-	}
 	return sc;
 }
 
 function mouseDown( e ) {
     e.preventDefault();
 	obj = scene.getObjectByName("helper");
-	scene.remove(obj)
+	//scene.remove(obj)
     mouseVector.x = ( e.clientX / window.innerWidth ) * 2 - 1;
     mouseVector.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
 	raycaster.setFromCamera( mouseVector, camera );

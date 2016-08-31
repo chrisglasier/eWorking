@@ -98,7 +98,11 @@
 		"Label": "Floor",
 		"Backlink": ["8"],
 		"Link": ["9","10"],
-		"Dims": [2700,2675,1000],
+		"Dims": [
+			3300,
+			3275,
+			2800
+		],
 		"MinMargin": [0,0,0,0,0,0],
 		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
@@ -109,7 +113,11 @@
 		"Label": "Guestroom",
 		"Backlink": ["10"],
 		"Link": ["20","21"],
-		"Dims": [2700,2675,1000],
+		"Dims": [
+			3300,
+			3275,
+			2800
+		],
 		"MinMargin": [0,0,0,0,0,0],
 		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
@@ -120,9 +128,13 @@
 		"Label": "Bedroom",
 		"Backlink": ["19"],
 		"Link": ["148"],
-		"Dims": [1500,2075,1000],
+		"Dims": [
+			2700,
+			2675,
+			1000
+		],
 		"MinMargin": [300,300,300,300,0,0],
-		"Margin": [300,300,300,300,0,0],
+		"Margin": [300,300,300,300,0,1800],
 		"Rotation": [0,0,0],
 		"Float": ["left","forward","down"],
 		"Note": "This positions clones"
@@ -133,7 +145,11 @@
 		"Label": "Bathroom",
 		"Backlink": ["19"],
 		"Link": ["154"],
-		"Dims": [0,0,0],
+		"Dims": [
+			0,
+			0,
+			0
+		],
 		"MinMargin": [0,0,0,0,0,0],
 		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
@@ -159,7 +175,11 @@
 		"Link": ["152","153"],
 		"Style": "Plain",
 		"Visible": true,
-		"Dims": [1500,2075,1000],
+		"Dims": [
+			1500,
+			2075,
+			1000
+		],
 		"MinMargin": [600,600,600,0,0,0],
 		"Margin": [600,600,600,0,0,0],
 		"Rotation": [0,0,0]
@@ -207,7 +227,11 @@
 		"Label": "WC",
 		"Backlink": ["21"],
 		"Link": ["156"],
-		"Dims": [0,0,0],
+		"Dims": [
+			0,
+			0,
+			0
+		],
 		"MinMargin": [0,0,0,0,0,0],
 		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
@@ -230,12 +254,12 @@
 	},
 	"Admin": {
 		"trail": ["Couplers","Hotel","1","3","8","12","10","19","20","148","151","153"],
-		"nTrail": ["Couplers","Hotel","1","3","8","12","10","19","20"],
-		"nNode": "20",
+		"nTrail": ["Couplers","Hotel","1","3","8","12"],
+		"nNode": "12",
 		"Store": "../remote/stores/building.json",
-		"active": "3d Modeller",
+		"active": "Modeller",
 		"monitor": {
-			"3d Modeller": {
+			"Modeller": {
 				"scene": {
 					"camera": "Perspective"
 				}
@@ -251,7 +275,7 @@
 		"Location": "../remote/namesets/blazer.json",
 		"Store": "../remote/stores/code.json",
 		"position": [
-			[943,12],
+			[700,12],
 			[3516,0]
 		],
 		"monitor": {
@@ -292,8 +316,8 @@
 		},
 		"bfig": {
 			"coupler": "Hotel",
-			"monitor": "3d Modeller",
-			"mTrail": ["Hotel","3d Modeller"],
+			"monitor": "Modeller",
+			"mTrail": ["Hotel","Modeller"],
 			"aTrail": {
 				"key": "Type"
 			},
@@ -338,8 +362,8 @@
 		"Location": "../remote/namesets/hotel.json",
 		"Store": "../remote/stores/building.json",
 		"monitor": {
-			"3d Modeller": {
-				"url": "../../remote/monitors/3D modeller.html",
+			"Modeller": {
+				"url": "../../remote/monitors/Modeller.html",
 				"size": [
 					[514,451],
 					[599,493]
@@ -348,7 +372,7 @@
 					[-5,2],
 					[2851,4]
 				],
-				"show": false,
+				"show": true,
 				"title": "Hotel",
 				"name": "Hotel",
 				"toolbar": true,
@@ -359,7 +383,7 @@
 				"win": 3
 			},
 			"Server": {
-				"url": "../../remote/monitors/3D server.html",
+				"url": "../../remote/monitors/Server.html",
 				"size": [
 					[492,639],
 					[757,680]
@@ -388,10 +412,10 @@
 				[301,534]
 			],
 			"position": [
-				[540,-1],
+				[185,142],
 				[3509,486]
 			],
-			"show": false,
+			"show": true,
 			"title": "Lert",
 			"name": "Hotel",
 			"toolbar": false,

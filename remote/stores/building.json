@@ -25,7 +25,7 @@
 	"values": {
 		"Context": {
 			"Assembly": ["Site","Building","Guestroom","Interiors","Bed"],
-			"Grouping": ["Element","Space","SanitarywareSpace","Sanitaryware"],
+			"Grouping": ["Element","Space","Sanitaryware","Test1"],
 			"Product": ["Bed","Pan"]
 		},
 		"Label": {
@@ -34,8 +34,25 @@
 			"Element": ["Elements"],
 			"Space": ["Spaces"],
 			"Assembly": ["Guestroom","Bedroom","Bed"],
-			"Grouping": ["undefined","WC"],
+			"Grouping": ["WC","Test2"],
 			"Product": ["Pan"]
+		},
+		"MinMargin": {
+			"Assembly": [
+				[600,600,600,0,0,0],
+				[300,300,300,300,0,0]
+			]
+		},
+		"Margin": {
+			"Assembly": [
+				[600,600,600,0,0,0],
+				[300,300,300,300,0,0]
+			]
+		},
+		"Rotation": {
+			"Assembly": [
+				[0,0,0]
+			]
 		}
 	}
 }

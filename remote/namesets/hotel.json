@@ -361,9 +361,9 @@
 		"nTrail": ["Couplers"],
 		"nNode": "Couplers",
 		"Store": "../remote/stores/building.json",
-		"active": "3D Modeller",
+		"active": "3d Modeller",
 		"monitor": {
-			"3D Modeller": {
+			"3d Modeller": {
 				"scene": {
 					"camera": "Perspective"
 				}
