@@ -2,48 +2,48 @@
 	"1": {
 		"Label": "front",
 		"Image": "front",
-		"size": [1500,1000],
-		"position": [0,50,0],
+		"size": [100,2800],
+		"position": [0,750,0],
 		"rotation": [90,0,0]
 	},
 	"2": {
 		"Label": "back",
 		"Image": "front",
-		"size": [1500,1000],
-		"position": [0,-50,0],
+		"size": [100,2800],
+		"position": [0,-750,0],
 		"rotation": [90,0,0]
 	},
 	"3": {
 		"Label": "top",
 		"Image": "top",
 		"size": [1500,100],
-		"position": [0,0,500],
-		"rotation": [0,0,0]
+		"position": [0,0,1400],
+		"rotation": [0,0,90]
 	},
 	"4": {
 		"Label": "bottom",
 		"Image": "top",
 		"size": [1500,100],
-		"position": [0,0,-500],
-		"rotation": [0,0,0]
+		"position": [0,0,-1400],
+		"rotation": [0,0,90]
 	},
 	"5": {
 		"Label": "left",
 		"Image": "left",
-		"size": [100,1000],
-		"position": [750,0,0],
+		"size": [1500,2800],
+		"position": [50,0,0],
 		"rotation": [90,90,0]
 	},
 	"6": {
 		"Label": "right",
 		"Image": "left",
-		"size": [100,1000],
-		"position": [-750,0,0],
+		"size": [1500,2800],
+		"position": [-50,0,0],
 		"rotation": [90,90,0]
 	},
 	"Model": {
 		"Label": "Model",
-		"Dims": [1500,100,1000],
+		"Dims": [100,1500,2800],
 		"Link": ["1","2","3","4","5","6"]
 	}
 }

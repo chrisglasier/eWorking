@@ -154,6 +154,7 @@ function fClone(act,id,cell){
 	if(act){
 		nt = cfig.nTrail;
 		node = cfig.nNode;
+		
 		par = nt[nt.length-2];
 		ind = $.inArray(node,nset[par].Link);
 		nn = newLab();
@@ -163,11 +164,15 @@ function fClone(act,id,cell){
 		label = nset[nn].Label.split(" ")[0];
 		count = nset[par].Link.length;
 		nset[nn].Label = [label,count].join(" ");
+		nset[nn].clone = node;
 		nset[par].Link.splice(ind +1,0,nn);
 		
 		nt[nt.length-1] = nn;
-		cfig.trail = cfig.nTrail = nt;
+		cfig.nTrail = nt;
 		cfig.nNode = nn;
+		
+	//clone trails stored
+		nset.Admin.hTrail[nn] = $.extend([],cfig.nTrail);
 		
 		ind = 0;
 		nodes = [[nn]];

@@ -25,7 +25,7 @@
 	"values": {
 		"Context": {
 			"Assembly": ["Site","Building","Guestroom","Interiors","Bed"],
-			"Grouping": ["Element","Space","Sanitaryware","Test1"],
+			"Grouping": ["Element","Space","Sanitaryware"],
 			"Product": ["Bed","Pan"]
 		},
 		"Label": {

@@ -20,13 +20,13 @@ function tRun(){
 			})
 		)
 	});
-	tide(2);
+	tide();
 }
 
-function tide(pos){
+function tide(){
 	var cell,tl,left;
 	nt = cfig.nTrail;
-	par = nt[nt.length-pos]? nt[nt.length-pos] : nt[nt.length-1];
+	par = nt[nt.length-1];
 	cell = $("#t" +par); 
 	$("#nameTrail a").css("fontWeight","normal");
 	cell.css("fontWeight","bold");
@@ -177,7 +177,7 @@ function nDown(cell){
 		nt = par === "slider1"? nt = nt.slice(0,-1) : nt;
 		nt.push(node);
 		cfig.nTrail = nt;
-		cfig.trail = nt;
+		cfig.trail = cfig.hTrail[node]? cfig.hTrail[node] : nt;
 	}
 	cfig.nNode = node;
 	nRun();

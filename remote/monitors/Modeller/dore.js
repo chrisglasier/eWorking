@@ -18,8 +18,9 @@ function start(){
 			nset = JSON.parse(txt);
 			node = nset.Admin.nNode;
 		}
+		cam = nset.Admin.monitor["Modeller"].scene.camera;
+		$("#cam").html(cam.type +": "+cam.position);
 		setScene();
-		nodes = nodesArray(node);
-		setModel(nodes);
+		setModel();
 	});
 }

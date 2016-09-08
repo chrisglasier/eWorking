@@ -6,19 +6,9 @@
 		"Backlink": ["Hotel"],
 		"Link": ["2","3","4"],
 		"Area": 100,
-		"Dims": [2700,2700,1000],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"Dims": [2700,2675,1000],
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"2": {
@@ -27,18 +17,8 @@
 		"Label": "Substructure",
 		"Backlink": ["1"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"3": {
@@ -47,19 +27,9 @@
 		"Label": "Superstructure",
 		"Backlink": ["1"],
 		"Link": ["5","6","7","8"],
-		"Dims": [2700,2700,1000],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"Dims": [2700,2675,1000],
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"4": {
@@ -68,18 +38,8 @@
 		"Label": "External Works",
 		"Backlink": ["1"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"5": {
@@ -88,38 +48,18 @@
 		"Label": "Roof",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"6": {
 		"Type": "Assembly",
 		"Context": "Element",
-		"Label": "Enlosure",
+		"Label": "Enclosure",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"7": {
@@ -128,18 +68,8 @@
 		"Label": "Structure",
 		"Backlink": ["3"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"8": {
@@ -168,19 +98,9 @@
 		"Label": "Floor",
 		"Backlink": ["8"],
 		"Link": ["9","10"],
-		"Dims": [2700,2675,1000],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"Dims": [3300,3275,2800],
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"19": {
@@ -189,19 +109,9 @@
 		"Label": "Guestroom",
 		"Backlink": ["10"],
 		"Link": ["20","21"],
-		"Dims": [2700,2675,1000],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"Dims": [3300,3275,2800],
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"20": {
@@ -211,19 +121,11 @@
 		"Backlink": ["19"],
 		"Link": ["148"],
 		"Dims": [2700,2675,1000],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
-		"Rotation": [0,0,0]
+		"MinMargin": [300,300,300,300,0,0],
+		"Margin": [300,300,300,300,0,1800],
+		"Rotation": [0,0,0],
+		"Float": ["left","forward","down"],
+		"Note": "This positions clones"
 	},
 	"21": {
 		"Type": "Assembly",
@@ -232,18 +134,8 @@
 		"Backlink": ["19"],
 		"Link": ["154"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"148": {
@@ -268,18 +160,8 @@
 		"Style": "Plain",
 		"Visible": true,
 		"Dims": [1500,2075,1000],
-		"Void": {
-			"Minimum": {
-				"x": [600,600],
-				"y": [600,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [600,600],
-				"y": [0,600],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [600,600,600,0,0,0],
+		"Margin": [600,600,600,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"152": {
@@ -294,7 +176,7 @@
 		"Visible": true,
 		"Shape": "box",
 		"Dims": [1500,100,1000],
-		"Position": [0,-975,0],
+		"Position": [0,-1050,0],
 		"Rotation": [0,0,0]
 	},
 	"153": {
@@ -326,18 +208,8 @@
 		"Backlink": ["21"],
 		"Link": ["156"],
 		"Dims": [0,0,0],
-		"Void": {
-			"Minimum": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			},
-			"Current": {
-				"x": [0,0],
-				"y": [0,0],
-				"z": [0,0]
-			}
-		},
+		"MinMargin": [0,0,0,0,0,0],
+		"Margin": [0,0,0,0,0,0],
 		"Rotation": [0,0,0]
 	},
 	"156": {
@@ -361,9 +233,9 @@
 		"nTrail": ["Couplers"],
 		"nNode": "Couplers",
 		"Store": "../remote/stores/building.json",
-		"active": "3d Modeller",
+		"active": "Modeller",
 		"monitor": {
-			"3d Modeller": {
+			"Modeller": {
 				"scene": {
 					"camera": "Perspective"
 				}
