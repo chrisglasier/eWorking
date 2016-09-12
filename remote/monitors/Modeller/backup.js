@@ -1,22 +1,53 @@
 //support for model.js
-function setObjects(node,pode,nn){
-	var obj,par,products;
+function center(){
+	var w,h,mat,geoline;
+	w = $("body").width();
+	h = $("body").height();
+	mat = new THREE.LineBasicMaterial({
+        color: 0xff00ff
+    });
+	geo = new THREE.Geometry();
+    geo.vertices.push(new THREE.Vector3(-w, 0, 0));
+    geo.vertices.push(new THREE.Vector3(0, 0, 0));
+	geo.vertices.push(new THREE.Vector3(0, -h, 0));
+    line = new THREE.Line(geo, mat);
+	scene.add(line);
+}
+ function singleton(node){
 	obj = new THREE.Object3D();
 	obj.name = node;
-	par = scene.getObjectByName(pode);
-//parent of first node might be made unnecessary
-	if(!par){
-		par = new THREE.Object3D();
-		par.name = pode;
-		scene.add(par);
+	if(nset[node].hasOwnProperty("pset")){
+		obj = setProduct(obj);
+		scene.add(obj)
 	}
-	par.add(obj);
-	if(nn.Type === "Product"){
-		if(nn.hasOwnProperty("pset")){
-			obj = setProduct(obj);
-		}	
+	else{
+		html = nset[node].Label +" not sized yet";
+		$("#notice").show().html(html);
 	}	
 }
+ 
+function setObjects(pair){
+	var obj,par,xsts;
+	par = scene.getObjectByName(pair[0]);
+	$.each(pair[1],function(i,v){
+		obj = scene.getObjectByName(v);
+		if(!obj){
+			obj = new THREE.Object3D();
+			obj.name = v;
+		}
+		if(nset[v].Type === "Product"){
+			if(nset[v].hasOwnProperty("pset")){
+				obj = setProduct(obj);
+				xsts = true;
+			}
+		}			
+		par.add(obj);
+		console.log(obj)
+	});
+	if(xsts){
+		return true;
+	}
+}		
 
 function setProduct(obj){
 	var node,on,pp,pi,file,txt,set,obj,r,geometry,plain,img,tex,texture,material,plane,rx,ry,rz,sc;
@@ -73,62 +104,61 @@ function setProduct(obj){
 	return obj;
 }
 
-//removes products identified but no size
-function placeholders(node){
-	$.each(nset[node].Link,function(i,v){
-		fv = nset[v];
-		if(fv.Type === "Product"){
-			if(!fv.Size){
-				fv.Size = [0,0,0];
-			}
-		}
-	});		
-}
-
-function expander(pair,xyz){
-	var length,width,height,i,v,nv,nr,on,dims,size,ax,obj,offset,m,di,adj;
-	length = 0; width = 0; height = 0; offset = [];
+function expander(pair,xyz,pen){
+	var nn,links,a,b,c,i,v,nv,nr,on,dims,size,ax,obj,m,di,adj;
+	a = 0; b = 0; c = 0;
 	nn = nset[pair[0]];
-	links = nn.Link;
+	links = pair[1];
+	switch(nn.Float){
+		case "Back": ax = "y"; d = 1; x = 1; y = 0; break;
+		case "Down": ax = "z"; d = 2; break;
+		default: ax = "x"; d = 0; x = 0; y = 1;
+	}
+	//ax = "x";  x = 0; y = 1;
 //expand to contain links	
 	$.each(links,function(i,v){
 		nv = nset[v];
 		if(nv.Type === "Product"){
 			size = nv.Size;
-			length = size[0] >0? length += size[0] : length;
-			width = Math.max(width,size[1]);
-			height = height >size[2]? height : size[2];
+			a = size[0] >0? a += size[0] : a;
+			b = Math.max(b,size[1]);
+			c = c >size[2]? c : size[2];
 		}
 		else{
 			dims = nv.Dims;
-			offset.push([length,dims[0],v]);
-			length += dims[0];
-			width = Math.max(width,dims[1]);
-			height = height >dims[2]? height : dims[2];
+			a = Math.max(a,dims[x]);
+			b = Math.max(b,dims[y]);
+			c = c >dims[2]? c : dims[2];
 		}
 	});
-	dims = [length,width,height];
-	nn.offset = offset;
+	dims = nn.Float === "Back"? [b,a,c] : [a,b,c];
+	
 //position products
 	$.each(links,function(i,v){
 		nv = nset[v];
 		if(nv.Type === "Product"){
 			size = nv.Size;
 			obj = scene.getObjectByName(v);
-			offset = (length -size[0])/2;
-			m = size[0] >length/2? 1 : -1;
+			offset = (a -size[0])/2;
+			m = size[0] >a/2? 1 : -1;
 			obj.position.x = offset * m;
-			obj.position.z = (size[2] -height)/2;
+			obj.position.z = (size[2] -c)/2;
 		}
 	});
+	obj = scene.getObjectByName(pair[0]);
+	pos = [0,0,0];
+	rot = $.extend(true,{},nn.Rotation);
+	$.each(rot,function(i,v){
+		rot[i] *= Math.PI/180;
+	});
+	obj.rotation.set(rot[0],rot[1],rot[2]);
 //position container for margins
 	m = nn.Margin;
 	i = 0; di = 0;
-	pos = [0,0,0];
 	while(i <m.length){
 		if(m[i]!== m[i+1]){
 			adj = -m[i]/2;
-			//obj.position[xyz[i]] = adj;
+			obj.position[xyz[i]] = adj;
 			pos[i] = adj;
 		}
 		di +=1;
@@ -144,22 +174,36 @@ function expander(pair,xyz){
 		i +=2;
 		di +=1;
 	}
-	arr = nn.offset;
-	$.each(arr,function(i,v){
-		if(v[0] >0 && v[1] >0){
-			obj = scene.getObjectByName(v[2]);
-			off = v[0];
-			obj.position.x = -off;
+	tot = 0; arr = [];
+	//lert([nn.Label,dims])
+//position multiple objs in containers
+	if(links.length >1){
+		$.each(links,function(i,v){
+			nv = nset[v];
+			if(nv.Type === "Assembly"){
+				dim = nv.Dims[d];
+				if(dim > 0){
+					arr.push([v,dim]);
+				}
+				last = dim;
+				tot += last;
+			}
+		});
+		if(arr.length >1){
+			min = -(tot-last)/2;
+			$.each(arr,function(i,v){
+				obj = scene.getObjectByName(v[0]);
+				obj.position[ax] = min;
+				min += v[1];
+			});
 		}
-	});
-	//obj = scene.getObjectByName(pair[0]);
-	//lert([obj.position.x,dims[0]/2])
+	
+	}
 	expanderBox(dims,pair,pos);
-
 }
 
 function expanderBox(d,pair,pos){
-	var geo,expBox,par;
+	var geo,mat,obj,par;
 	geo = new THREE.BoxGeometry( d[0], d[1], d[2] );
 	mat = new THREE.MeshBasicMaterial({
 		color: 0xffffff,
@@ -169,16 +213,19 @@ function expanderBox(d,pair,pos){
 	//expBox = new THREE.Mesh(geo);
 	//expBox.visible = false;
 	obj.name = "g" +pair[0];
+	//obj.visible = false;
 	n = [];
 	$.each(pos,function(i,v){
 		n.push(-v);
 	});
+//needed when original not @0,0,0
 	obj.position.set(n[0],n[1],n[2]);
 	par = scene.getObjectByName(pair[0]);
 	par.add(obj);
+	console.log(obj)
 }
 
-function bounds(pair,xyz){
+function boundBox(pair,xyz){
 	var ret,max,min,d
 	ret = helpBox(pair[0]);
 	max = []; min = []; 
@@ -198,7 +245,7 @@ function bounds(pair,xyz){
 function helpBox(node) {
 	var obj,helper,ret;
 	obj = scene.getObjectByName(node);
-	helper = new THREE.BoundingBoxHelper(obj, 0x000000);
+	helper = new THREE.BoundingBoxHelper(obj, 0xff0000);
 	helper.name = "helper";
 	helper.update();
 	ret = {};

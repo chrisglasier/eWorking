@@ -24,7 +24,7 @@
 	},
 	"values": {
 		"Context": {
-			"Assembly": ["Site","Building","Guestroom","Interiors","Bed"],
+			"Assembly": ["Site","Building","Guestroom","Interiors","Bed","GuestPair"],
 			"Grouping": ["Element","Space","Sanitaryware"],
 			"Product": ["Bed","Pan"]
 		},
@@ -33,7 +33,7 @@
 			"Building": ["Floors"],
 			"Element": ["Elements"],
 			"Space": ["Spaces"],
-			"Assembly": ["Guestroom","Bedroom","Bed"],
+			"Assembly": ["Guestroom","Bedroom","Bed","GuestPair"],
 			"Grouping": ["WC","Test2"],
 			"Product": ["Pan"]
 		},

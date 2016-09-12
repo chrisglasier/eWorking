@@ -177,7 +177,7 @@ function nDown(cell){
 		nt = par === "slider1"? nt = nt.slice(0,-1) : nt;
 		nt.push(node);
 		cfig.nTrail = nt;
-		cfig.trail = cfig.hTrail[node]? cfig.hTrail[node] : nt;
+		hTrails(node,nt);
 	}
 	cfig.nNode = node;
 	nRun();

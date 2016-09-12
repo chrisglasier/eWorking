@@ -16,14 +16,7 @@ function fType(act,id){
 	var node;
 	if(act){
 		node = cfig.nNode;
-		if(id === "Product" && nset[node].Type === id){
-//creates an new assembly set for multiple products
-//assembly type voids all product aspects in original
-			lab = newProductAssembly(node)
-		}
-		else{
-			lab = newName(id,node);
-		}
+		lab = newName(id,node);
 		cfig.nTrail.push(lab);
 		cfig.trail = cfig.nTrail;
 		cfig.nNode = lab;
@@ -55,32 +48,32 @@ function newName(id,node,context,label){
 	lab = newLab();
 	o = nset[lab] = {};
 	o.Type = id;
-	o.Context = context? context : "undefined";
+	o.Context = context? context : "Select/Input";
 	o.Label = label? label : o.Context;
 	o.Backlink = [node];
 	nn = nset[node];
-	if(id === "Product"){
-		o.Source = "search";
-	}
-	else{
+	if(id !== "Product"){
 		nn = nset[node];
 		if(nn.Link){
 			o.Link = $.extend(true,[],nn.Link);
 		}
 	}
 	nn.Link = [lab];
-	return lab;
-}
-
-function newProductAssembly(node){
-	var nn,o;
-	nn = nset[node];
-	lab = newLab();
-	o = nset[lab] = $.extend(true,{},nn);
-	o.Backlink = [node];
-	nn.Type = "Assembly";
-	nn.Label += " Assembly";
-	nn.Link = [lab];
+//this to be made accessible via json
+	switch(id){
+		case "Product":
+			o.Source = "search";
+			o.Size = [0,0,0];
+		break;
+		case "Assembly":
+			o.Float = "left";
+			o.MinMargin = [0,0,0,0,0,0];
+			o.Margin = [0,0,0,0,0,0];
+			o.Rotation = [0,0,0];
+			
+		break;
+	}
+	
 	return lab;
 }
 
@@ -150,7 +143,7 @@ function fCrosslink(act,id,cell){
 }
 
 function fClone(act,id,cell){
-	var nt,node,par,ind,nn,label,count,nodes;
+	var nt,node,par,ind,nn,label,count,pairs;
 	if(act){
 		nt = cfig.nTrail;
 		node = cfig.nNode;
@@ -175,8 +168,8 @@ function fClone(act,id,cell){
 		nset.Admin.hTrail[nn] = $.extend([],cfig.nTrail);
 		
 		ind = 0;
-		nodes = [[nn]];
-		compile(nodes,ind);			
+		pairs = [[nn]];
+		compile(pairs,ind);			
 	}
 	else{
 		linkOptions(id,2);
@@ -187,7 +180,7 @@ function fClone(act,id,cell){
 }
 
 function fDelete(act,id,cell){
-	var nt,par,pLink,node,ind,ent,nodes;
+	var nt,par,pLink,node,ind,ent,pairs;
 	if(act){
 	//remove from parent links	
 		nt = cfig.nTrail;
@@ -209,8 +202,8 @@ function fDelete(act,id,cell){
 		}
 	//markup all descendant links for purging
 		else if(nset[node].Link){
-			nodes = [[node]];
-			compile(nodes,0);
+			pairs = [[node]];
+			compile(pairs,0);
 		
 		}
 	//reset node and trails

@@ -14,7 +14,6 @@ function read(file){
 	var txt;
 	txt = fs.readFileSync(file, 'utf-8');
 	return txt;
-	
 }
 
 function setConfig(){
@@ -48,7 +47,7 @@ function lerter(){
 }
 
 function blazer(){
-	var set,nr,obj,height,a,nodes,arr,cc;
+	var set,nr,obj,height,a,pairs,arr,cc;
 	obj = gui.Window.get();
 	set = nset.Blazer;
 	nr = bfig.screen >1? bfig.screen -1 : 0;
@@ -192,7 +191,19 @@ function finishUp(){
 		bfig.oh = w.height;
 		tide(2);
 		w.show();
+		//tester();
 	});
+}
+
+function tester(){
+	pairs = pairAssembler([cfig.nNode]);
+//singular products separate	
+	if(pairs){
+		$.each(pairs,function(i,v){
+			lert([v[0],nset[v[0]].Label,v[1]]);
+		});
+	}
+		
 }
 		
 function menu(){

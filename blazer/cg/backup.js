@@ -40,6 +40,29 @@ function updateStore(t,k,v){
 	}
 }
 
+function hTrails(node,nt){
+	var arr;
+	$.each(cfig.hTrail,function(k,v){
+		ind = $.inArray(node,v);
+		if(ind >-1){
+			arr = v;
+		}
+	});
+	if(arr){
+		cfig.trail = arr;
+	}
+	else{
+		k = node;
+		arr = $.extend([],nt)
+		while(nset[node].Link){
+			node = nset[node].Link[0];
+			arr.push(node);
+		}
+		cfig.trail = arr;
+		cfig.hTrail[k] = arr;
+	}
+}
+
 function aspects(node){
 	var arr,narr,i,k,v;
 	arr = [];

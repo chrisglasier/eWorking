@@ -75,46 +75,46 @@ function inspect(){
 //For dev editing nsets
 function adjuster(){
 	nn = "oMachine";
-	nodes = [[nn]];
+	pairs = [[nn]];
 	ind = 0;
-	compile(nset,nodes,ind);
+	compile(nset,pairs,ind);
 }
 
-function compile(set,nodes,ind){
+function compile(set,pairs,ind){
 	var n,k,a;
 //compiles the Links array
-	n = nodes[ind][0];
+	n = pairs[ind][0];
 	if(set[n].Link){
 		k = set[n].Link;
 		for(a = 0; a < k.length; a += 1){
-			nodes.push([k[a],n]);
+			pairs.push([k[a],n]);
 		}
 		
 		//delete set[n].Link;
-		pass(set,nodes,ind);
+		pass(set,pairs,ind);
 	}
 }
 
-function pass(set,nodes,ind){
-	var node;
+function pass(set,pairs,ind){
+	var pair;
 	ind += 1;
-	node = nodes[ind];
-	if(!nodes[ind]){
+	pair = pairs[ind];
+	if(!pairs[ind]){
 		lset = {}
-		$.each(nodes,function(k,v){
+		$.each(pairs,function(k,v){
 			lset[v[0]] = nset[v[0]];
 		});
 		nset = lset;
 		return;
 	}
-	n = nodes[ind][0];
+	n = pairs[ind][0];
 //Filter
-	if(set[node[0]].Link){
-//node has children = compile	
-		compile(set,nodes,ind);			
+	if(set[pair[0]].Link){
+//pair[0] has children = compile	
+		compile(set,pairs,ind);			
 	}
 	else{
 // no children = pass again	
-		pass(set,nodes,ind);				
+		pass(set,pairs,ind);				
 	}
 }

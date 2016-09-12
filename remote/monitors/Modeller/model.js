@@ -1,47 +1,52 @@
 function setModel(){
-	var node,nodes;
-	node = opr.legitNode(opr.cfig.nNode);
-	nodes = opr.assemblyArray(node);
-	topDown(nodes);
-}
-
-function topDown(nodes){
-	var nn;
-	$.each(nodes,function(i,v){
-		nn = nset[v[0]];
-		setObjects(v[0],v[1],nset[v[0]]);
-//to rebuild from bottom up -- products identified not sized
-		if(nn.Type === "Assembly"){
-			nn.Dims = [0,0,0];
-		}
-	});
-	if(nset[nodes[0][0]].Type !== "Product"){
-		bottomUp(nodes);
+	var node,pairs;
+	center();
+	node = opr.cfig.nNode;
+	pairs = opr.pairAssembler(node);
+	if(!pairs){
+		singleton(node);
+		md = Math.max.apply(Math,nset[node].Size);
+		setScale(md);
 	}
 	else{
-		obj = new THREE.Object3D();
-		obj.name = nodes[0][0];
-		obj = setProduct(obj);
-		scene.add(obj);
-		md = Math.max.apply(Math,nset[nodes[0][0]].Size);
-		setScale(md);
+		topDown(pairs,node);
 	}
 	animate();
 }
 
-function bottomUp(nodes){
-	var xyz,md;
-	xyz = ["x","y","z"];
-	nodes.reverse();
-	$.each(nodes,function(i,v){
-		if(nset[v[0]].Link){
-			expander(v,xyz);		
-			ret = bounds(v,xyz);
-			nset[v[0]].Dims = ret.d;
-			//lert(["RET",nset[v[0]].Label,nset[v[0]].Dims])
+function topDown(pairs,node){
+	var par,xsts,products,html;
+	par = new THREE.Object3D();
+	par.name = pairs[0][0];
+	scene.add(par);	
+	
+	$.each(pairs,function(i,v){
+		xsts = setObjects(v);
+		if(xsts){
+			products =  true;
 		}
+		nset[v[0]].Dims = [0,0,0];
 	});
-	//scene.add(ret.box);
+	if(products ){
+		bottomUp(pairs);
+	}
+	else{
+		html = nset[node].Label+ " trail has no products"
+		$("#notice").show().html(html);
+	}
+}
+
+function bottomUp(pairs){
+	var xyz,last,md;
+	xyz = ["x","y","z"];
+	//pairs.shift();
+	pairs.reverse();
+	$.each(pairs,function(i,v){
+		expander(v,xyz);		
+		ret = boundBox(v,xyz);
+		nset[v[0]].Dims = ret.d;
+	});
+	scene.add(ret.box);
 	md = Math.max(ret.d[0],ret.d[1],ret.d[2]);
 	setScale(md);
 }
@@ -51,7 +56,7 @@ function setScale(md){
 	h = $("body").height();
 	sc = Math.min(w/md,h/md)/2;
 	scene.scale.set(sc,sc,sc);
-}	
+}
 
 function mouseDown( e ) {
 	var intersects,node
