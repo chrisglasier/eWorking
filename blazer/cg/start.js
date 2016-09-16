@@ -19,9 +19,7 @@ function read(file){
 function setConfig(){
 	bfig = nset.Blazer.bfig;
 //blazer configuration
-//sets aspect trail to default in case saved
-	bfig.aTrail = {};
-	bfig.aTrail.key = "Type";
+//in case saved during cloning/deleting
 	bfig.links = false;
 	gui.Screen.Init();
 	bfig.screen = gui.Screen.screens.length;
@@ -196,13 +194,21 @@ function finishUp(){
 }
 
 function tester(){
-	pairs = pairAssembler([cfig.nNode]);
-//singular products separate	
-	if(pairs){
-		$.each(pairs,function(i,v){
-			lert([v[0],nset[v[0]].Label,v[1]]);
-		});
-	}
+	dno = 1200;
+	hno = 2493;
+	$.each(nset,function(k,v){
+		if(v.Type === "Product"){
+			label = v.Label.split(" ")[0];
+			if(label === "Divan"){
+				dno +=1;
+				v.Label = "Divan " + dno;
+			}
+			else if(label === "Headboard"){
+				hno +=1;
+				v.Label = "Headboard " + hno;
+			}
+		}
+	});
 		
 }
 		

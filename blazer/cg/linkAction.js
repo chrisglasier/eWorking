@@ -18,7 +18,8 @@ function fType(act,id){
 		node = cfig.nNode;
 		lab = newName(id,node);
 		cfig.nTrail.push(lab);
-		cfig.trail = cfig.nTrail;
+		ind = $.inArray(node,cfig.trail);
+		cfig.trail.splice(ind +1,0,lab);
 		cfig.nNode = lab;
 		bfig.aTrail.key = "Context";
 		nRun();
@@ -155,18 +156,13 @@ function fClone(act,id,cell){
 		nset[nn] = $.extend(true,{},nset[node]);
 		nset[nn].Backlink = [par];
 		label = nset[nn].Label.split(" ")[0];
-		count = nset[par].Link.length;
+		count = nset[par].Link.length +1;
 		nset[nn].Label = [label,count].join(" ");
 		nset[nn].clone = node;
 		nset[par].Link.splice(ind +1,0,nn);
 		
 		nt[nt.length-1] = nn;
-		cfig.nTrail = nt;
-		cfig.nNode = nn;
-		
-	//clone trails stored
-		nset.Admin.hTrail[nn] = $.extend([],cfig.nTrail);
-		
+		cfig.trail = cfig.nTrail = nt;
 		ind = 0;
 		pairs = [[nn]];
 		compile(pairs,ind);			
@@ -181,6 +177,9 @@ function fClone(act,id,cell){
 
 function fDelete(act,id,cell){
 	var nt,par,pLink,node,ind,ent,pairs;
+	lert("delete to be remade with new compile function")
+	return;
+	
 	if(act){
 	//remove from parent links	
 		nt = cfig.nTrail;

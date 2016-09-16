@@ -14,7 +14,8 @@ function setScene(project){
 	document.body.appendChild( renderer.domElement );
 	renderer.domElement.addEventListener( 'mousedown', mouseDown, false );
 	renderer.domElement.addEventListener( 'mouseup', mouseUp, false );
-	renderer.domElement.addEventListener('mousewheel', mouseUp, false);
+	renderer.domElement.addEventListener('mousewheel', mouseScroll, false);
+	
 	scene = new THREE.Scene();
 	
 	cam = nset.Admin.monitor["Modeller"].scene.camera;

@@ -1,36 +1,25 @@
 //for clones and deletes
 
 function compile(pairs,ind){
-	var n,links,i,v;
-	n = pairs[ind][0]; 
+	var n,links,i,v,nn;
+	n = pairs[ind][0];
 	if(nset[n].Link){
 		links = nset[n].Link;
 		$.each(links,function(i,v){
 			pairs.push([v,n]);
 		});
-	//to keep position
-		nset[n].Link = undefined;
+		delete nset[n].Link;
 		pass(pairs,ind);
 		function pass(pairs,ind){
 			var pair,nn;
 			ind += 1;
 			pair = pairs[ind];
 			if(!pairs[ind]){
-				cfig.trail = nset.Admin.hTrail[pairs[0][0]];
 				return;
 			}
-			if(bfig.aTrail.fun === "Delete"){
-				nset[pair[0]].deleted = true;
-			}
-			else{
-				nn = newLab();
-				i = $.inArray(pair[0],cfig.trail);
-				if(i >-1){
-					nset.Admin.hTrail[pairs[0][0]].push(nn);
-				}
-				nset[nn] = $.extend(true, {}, nset[pair[0]]);
-				nset[nn].Backlink[0] = pair[1];
-			}	
+			nn = newLab();
+			nset[nn] = $.extend(true, {}, nset[pair[0]]);
+			nset[nn].Backlink[0] = pair[1];	
 			if(nset[pair[1]].Link){
 				nset[pair[1]].Link.push(nn);
 			}
@@ -49,6 +38,24 @@ function compile(pairs,ind){
 	}
 }
 
+function legitNode(node){
+	var nn,bn;
+	nn = nset[node];
+	if(nn.Type === "Assembly" || nn.Type === "Product"){
+		node = node;
+	}
+	else{
+		bn = node;
+		while(nset[bn].Type !== "Assembly" ){
+			bn = nset[bn].Backlink[0];
+			if(nset[bn].Type === "Assembly"){
+				node = bn;
+				break;
+			}
+		}
+	}
+	return node;
+}
 //for analysing/modelling assemblies
 function pairAssembler(node) {
 	var set,par,pairs,ind,pair,node,pode,np,repair,last,va,sn;
@@ -56,6 +63,7 @@ function pairAssembler(node) {
 	if(!set[node].Link){
 				return;
 	}
+	node =  legitNode(node);
 	pairs = [[node]];
 	ind = 0;
 	aCompile(pairs,ind);
@@ -112,7 +120,7 @@ function rerun(node){
 	var nt;
 	nt = [node];
 	while(nset[node].Backlink){
-		id = nset[node].Backlink[0];
+		node = nset[node].Backlink[0];
 		nt.unshift(node);
 	}
 	cfig.nTrail = nt;

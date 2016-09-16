@@ -1,6 +1,5 @@
 function setModel(){
 	var node,pairs;
-	center();
 	node = opr.cfig.nNode;
 	pairs = opr.pairAssembler(node);
 	if(!pairs){
@@ -11,6 +10,7 @@ function setModel(){
 	else{
 		topDown(pairs,node);
 	}
+	center();
 	animate();
 }
 
@@ -25,7 +25,6 @@ function topDown(pairs,node){
 		if(xsts){
 			products =  true;
 		}
-		nset[v[0]].Dims = [0,0,0];
 	});
 	if(products ){
 		bottomUp(pairs);
@@ -39,14 +38,13 @@ function topDown(pairs,node){
 function bottomUp(pairs){
 	var xyz,last,md;
 	xyz = ["x","y","z"];
-	//pairs.shift();
 	pairs.reverse();
 	$.each(pairs,function(i,v){
 		expander(v,xyz);		
 		ret = boundBox(v,xyz);
 		nset[v[0]].Dims = ret.d;
 	});
-	scene.add(ret.box);
+	//scene.add(ret.box);
 	md = Math.max(ret.d[0],ret.d[1],ret.d[2]);
 	setScale(md);
 }
@@ -59,20 +57,17 @@ function setScale(md){
 }
 
 function mouseDown( e ) {
-	var intersects,node
+	var intersects,node;
     e.preventDefault();
-//to pick at mesh behind
-	//obj = scene.getObjectByName("helper");
-	//scene.remove(obj)
-	$("#picking").html("Picking:off");
+	$("#picking").html("Picking:on");
     mouseVector.x = ( e.clientX / window.innerWidth ) * 2 - 1;
     mouseVector.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
 	raycaster.setFromCamera( mouseVector, camera );
-    var intersects = raycaster.intersectObjects(scene.children, true);
+    intersects = raycaster.intersectObjects(scene.children, true);
     if (intersects.length>0){
         node = intersects[ 0 ].object.parent.name;
 		if(node){
-			if(node.charAt(0) === "s"){
+			if(node.charAt(0) === "x"){
 				node = node.slice(1);
 			}
 			opr.cfig.nNode = node;
@@ -93,4 +88,11 @@ function mouseUp( e ) {
 	$("#cam").html(cam.type +": "+cam.position);
 }
 
-
+function mouseScroll( e ) {	
+	var cam,xyz;
+	//e.preventDefault();
+//keep last camera position after orbit
+	cam = nset.Admin.monitor["Modeller"].scene.camera;
+	cam.position.z = Math.round(camera.position.z);
+	$("#cam").html(cam.type +": "+cam.position);
+}

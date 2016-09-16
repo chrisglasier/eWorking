@@ -68,7 +68,8 @@ function aspects(node){
 	arr = [];
 	i = 0; ind = -1;
 	narr = $.extend(true, {}, nset[node]);
-	nn = nset[node]; 
+	nn = nset[node];
+//if set has no links it still needs a link manager
 	if(!nn.Link){
 		larr = [];
 		ind = 0;
@@ -85,6 +86,7 @@ function aspects(node){
 			narr[v[0]] = v[1];
 		});
 	}
+//links and backlinks changed to managers
 	$.each(narr,function(k,v){
 		if(k === "Backlink" || k === "Link"){
 			v = "manager";

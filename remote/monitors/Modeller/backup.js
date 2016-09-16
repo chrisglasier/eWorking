@@ -13,7 +13,8 @@ function center(){
     line = new THREE.Line(geo, mat);
 	scene.add(line);
 }
- function singleton(node){
+
+function singleton(node){
 	obj = new THREE.Object3D();
 	obj.name = node;
 	if(nset[node].hasOwnProperty("pset")){
@@ -32,7 +33,14 @@ function setObjects(pair){
 	$.each(pair[1],function(i,v){
 		obj = scene.getObjectByName(v);
 		if(!obj){
-			obj = new THREE.Object3D();
+			clone = nset[v].clone;
+			cloner = scene.getObjectByName(clone);
+			if(clone && cloner){
+				obj = cloner.clone( new THREE.Object3D(),false);
+			}
+			else{
+				obj = new THREE.Object3D();
+			}
 			obj.name = v;
 		}
 		if(nset[v].Type === "Product"){
@@ -40,15 +48,14 @@ function setObjects(pair){
 				obj = setProduct(obj);
 				xsts = true;
 			}
-		}			
+		}	
 		par.add(obj);
-		console.log(obj)
 	});
 	if(xsts){
 		return true;
 	}
-}		
-
+}
+	
 function setProduct(obj){
 	var node,on,pp,pi,file,txt,set,obj,r,geometry,plain,img,tex,texture,material,plane,rx,ry,rz,sc;
 	on = nset[obj.name];
@@ -92,7 +99,6 @@ function setProduct(obj){
 		p = sv.position;
 		plane.position.set(p[0],p[1],p[2]);
 		
-		plane.userData.parent = obj;
 		obj.add(plane);
 	});
 	set = $.extend(true,{},nset[obj.name]);
@@ -105,78 +111,82 @@ function setProduct(obj){
 }
 
 function expander(pair,xyz,pen){
-	var nn,links,a,b,c,i,v,nv,nr,on,dims,size,ax,obj,m,di,adj;
-	a = 0; b = 0; c = 0;
+	var nn,links,a,b,c,parr,ax,d,x,y,i,v,nv,size,obj,offset,m,di,adj,pos,rot;
 	nn = nset[pair[0]];
 	links = pair[1];
+	nn.Dims = [0,0,0];
+	a = 0; b = 0; c = 0;
+	parr = [];
+//float
 	switch(nn.Float){
 		case "Back": ax = "y"; d = 1; x = 1; y = 0; break;
 		case "Down": ax = "z"; d = 2; break;
 		default: ax = "x"; d = 0; x = 0; y = 1;
 	}
-	//ax = "x";  x = 0; y = 1;
-//expand to contain links	
+//expand to contain products	
 	$.each(links,function(i,v){
 		nv = nset[v];
 		if(nv.Type === "Product"){
+			parr.push(v);
 			size = nv.Size;
 			a = size[0] >0? a += size[0] : a;
 			b = Math.max(b,size[1]);
 			c = c >size[2]? c : size[2];
 		}
 		else{
-			dims = nv.Dims;
-			a = Math.max(a,dims[x]);
-			b = Math.max(b,dims[y]);
-			c = c >dims[2]? c : dims[2];
+			a = a >0? a += nv.Dims[x] : nv.Dims[x];
+			b = Math.max(b,nv.Dims[y]);
+			c = c >nv.Dims[2]? c : nv.Dims[2];
 		}
 	});
-	dims = nn.Float === "Back"? [b,a,c] : [a,b,c];
-	
+	nn.Dims = d === 1? [b,a,c] : [a,b,c];
 //position products
-	$.each(links,function(i,v){
+	$.each(parr,function(i,v){
 		nv = nset[v];
 		if(nv.Type === "Product"){
 			size = nv.Size;
 			obj = scene.getObjectByName(v);
-			offset = (a -size[0])/2;
-			m = size[0] >a/2? 1 : -1;
+			offset = (nn.Dims[0] -size[0])/2;
+			m = size[0] >nn.Dims[0]/2? 1 : -1;
 			obj.position.x = offset * m;
-			obj.position.z = (size[2] -c)/2;
+			obj.position.z = (size[2] -nn.Dims[2])/2;
 		}
 	});
+//Assembly pos rot
 	obj = scene.getObjectByName(pair[0]);
 	pos = [0,0,0];
 	rot = $.extend(true,{},nn.Rotation);
 	$.each(rot,function(i,v){
 		rot[i] *= Math.PI/180;
 	});
-	obj.rotation.set(rot[0],rot[1],rot[2]);
+	obj.rotation.set(rot[0],rot[1],rot[2]);	
 //position container for margins
 	m = nn.Margin;
 	i = 0; di = 0;
 	while(i <m.length){
 		if(m[i]!== m[i+1]){
-			adj = -m[i]/2;
-			obj.position[xyz[i]] = adj;
-			pos[i] = adj;
+			adj = m[i] >m[i+1]? -m[i]/2 : m[i+1]/2;
+			obj.position[xyz[di]] = adj;
+			pos[di] = adj;
+			
 		}
 		di +=1;
 		i +=2;
-	}	
-//resize container for margins	
+	}
+	
+//	resize container for margins	
 	m = nn.Margin;
+	nn.Margin = d === 1? [m[2],m[3],m[0],m[1],m[4],m[5]] : [m[0],m[1],m[2],m[3],m[4],m[5]]; 	
 	i = 0;
 	di = 0;
 	while(i <m.length){
 		tot = m[i] +m[i+1];;
-		dims[di] +=tot;
+		nn.Dims[di] +=tot;
 		i +=2;
 		di +=1;
 	}
-	tot = 0; arr = [];
-	//lert([nn.Label,dims])
 //position multiple objs in containers
+	arr = []; tot = 0;
 	if(links.length >1){
 		$.each(links,function(i,v){
 			nv = nset[v];
@@ -197,31 +207,37 @@ function expander(pair,xyz,pen){
 				min += v[1];
 			});
 		}
-	
 	}
-	expanderBox(dims,pair,pos);
+	expanderBox(nn.Dims,pair,pos,rot);
 }
 
-function expanderBox(d,pair,pos){
-	var geo,mat,obj,par;
-	geo = new THREE.BoxGeometry( d[0], d[1], d[2] );
-	mat = new THREE.MeshBasicMaterial({
-		color: 0xffffff,
-		wireframe: true
-	});
-	obj = new THREE.Mesh(geo,mat);
-	//expBox = new THREE.Mesh(geo);
-	//expBox.visible = false;
-	obj.name = "g" +pair[0];
-	//obj.visible = false;
+function expanderBox(d,pair,pos,rot){
+	var geo,mat,mesh,obj;
+	
+	color = new THREE.Color("white");
+	mat = new THREE.LineBasicMaterial({
+        color: color
+    });
+	geo = new THREE.Geometry();
+	gv = geo.vertices;
+	
+	gv.push(new THREE.Vector3(d[0]/2, -d[1]/2, -d[2]/2));
+	gv.push(new THREE.Vector3(-d[0]/2, -d[1]/2, -d[2]/2));
+	gv.push(new THREE.Vector3(-d[0]/2, d[1]/2, -d[2]/2));
+	
+	gv.push(new THREE.Vector3(d[0]/2, d[1]/2, -d[2]/2));
+	gv.push(new THREE.Vector3(d[0]/2, -d[1]/2, -d[2]/2));
+	
+    line = new THREE.Line(geo, mat);
+	line.name = "x" +pair[0];
 	n = [];
 	$.each(pos,function(i,v){
 		n.push(-v);
 	});
 //needed when original not @0,0,0
-	obj.position.set(n[0],n[1],n[2]);
-	par = scene.getObjectByName(pair[0]);
-	par.add(obj);
+	line.position.set(n[0],n[1],n[2]);
+	obj = scene.getObjectByName(pair[0]);
+	obj.add(line);
 	console.log(obj)
 }
 

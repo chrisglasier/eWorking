@@ -34,7 +34,7 @@ function tide(){
 	ww = w.width;
 	cl = cell.position().left; 
 	cw = cell.width();
-	left = (ww -cw)/2 -cl;
+	left = nset[par].Link? (ww -cw)/2 -cl : ww -cl-cw;
 	$("#nameTrail").css("left", left +"px");
 }
 
@@ -176,8 +176,8 @@ function nDown(cell){
 		par = cell.parent().attr("id");
 		nt = par === "slider1"? nt = nt.slice(0,-1) : nt;
 		nt.push(node);
-		cfig.nTrail = nt;
-		hTrails(node,nt);
+		cfig.trail = cfig.nTrail = nt;
+		//hTrails(node,nt);
 	}
 	cfig.nNode = node;
 	nRun();
